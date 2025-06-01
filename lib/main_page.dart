@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lawconnect_mobile_flutter/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/home_page.dart';
+import 'package:lawconnect_mobile_flutter/theme/color_palette.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,7 +13,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Text("Home"),
+    HomePage(),
     Text("Lawyers"),
     Text("Cases"),
     Text("Profile"),
