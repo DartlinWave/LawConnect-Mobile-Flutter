@@ -8,8 +8,8 @@ class ColorPalette {
   static Color mainButtonColor = const Color(0xFF393939);
   static Color matchButtonColor = const Color(0xFF0CAD17);
   static Color declineButtonColor = const Color(0xFFD81515);
-  static Color followUpButtonColor = const Color(0xFF6B6B6B);
-
+  static Color extraButtonColor = const Color(0xFF6B6B6B);
+  static Color lighterButtonColor = const Color(0xFFDADADA);
   // Status colors
   static Color openColor = const Color(0xFF4F54DA);
   static Color inEvaluationColor = const Color(0xFFC8CD1A);
