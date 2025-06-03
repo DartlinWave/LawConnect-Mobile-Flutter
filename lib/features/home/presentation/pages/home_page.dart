@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lawconnect_mobile_flutter/custom_widgets/basic_button.dart';
-import 'package:lawconnect_mobile_flutter/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
+import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
