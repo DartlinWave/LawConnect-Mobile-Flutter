@@ -10,10 +10,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'LawConnect Mobile',
       debugShowCheckedModeBanner: false,
-      home: MainPage()
+      home: MainPage(),
+      theme: ThemeData(
+        fontFamily: 'PlusJakartaSans',
+      ),
     );
   }
 }
