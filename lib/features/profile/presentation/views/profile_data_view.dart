@@ -37,7 +37,7 @@ class ProfileDataView extends StatelessWidget {
             height: 36,
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: ColorPalette.greyColor,
+              color: Colors.grey[200],
               border: Border.all(color: ColorPalette.mainButtonColor)
             ),
             child: Text(
@@ -57,7 +57,7 @@ class ProfileDataView extends StatelessWidget {
             height: 36,
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: ColorPalette.greyColor,
+              color: Colors.grey[200],
               border: Border.all(color: ColorPalette.mainButtonColor)
             ),
             child: Text(
