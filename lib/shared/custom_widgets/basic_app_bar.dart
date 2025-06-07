@@ -8,11 +8,25 @@ class BasicAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      centerTitle: true,
-      backgroundColor: ColorPalette.whiteColor,
-      foregroundColor: ColorPalette.blackColor
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(8, 10, 4, 8),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: ColorPalette.blackColor, width: 1),
+        ),
+        color: ColorPalette.whiteColor,
+      ),
+    
+      child: Text(
+        title,
+        textAlign: TextAlign.start,
+        
+        style: TextStyle(
+          fontSize: 16,
+          color: ColorPalette.blackColor
+        ),
+      ),
     );
   }
 }
