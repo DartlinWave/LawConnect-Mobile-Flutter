@@ -12,6 +12,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool _isProfileVisible = false;
+
   final List<Client> _client = [
     Client(
       id: '1',
@@ -36,15 +38,40 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 ProfileDataView(clients: _client),
 
                 SizedBox(height: 24),
 
+                Row(
+                  children: [
+                    Padding(padding: EdgeInsetsGeometry.only(right: 120)),
 
-                
+                    Text(
+                      'Visibilidad del Perfil',
+                      style: TextStyle(fontSize: 16),
+                    ),
+
+                    Positioned(
+                      top: 60,
+                      right: 30,
+
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isProfileVisible = !_isProfileVisible;
+                          });
+                        },
+                        icon: Icon(
+                          _isProfileVisible
+                              ? Icons.check_box
+                              : Icons.check_box_outline_blank,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
                 SizedBox(height: 24),
-
 
                 BasicButton(
                   text: 'Sign Out',
