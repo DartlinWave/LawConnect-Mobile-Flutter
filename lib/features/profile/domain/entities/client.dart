@@ -1,5 +1,6 @@
 class Client {
-  final String id;
+  final int id;
+  final int userId;
   final String name;
   final String lastName;
   final String dni;
@@ -8,6 +9,7 @@ class Client {
 
   Client({
     required this.id,
+    required this.userId,
     required this.name,
     required this.lastName,
     required this.dni,

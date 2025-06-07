@@ -16,7 +16,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final List<Client> _client = [
     Client(
-      id: '1',
+      id: 1,
+      userId: 1,
       name: 'Jane',
       lastName: 'Doe',
       dni: '12345678',
