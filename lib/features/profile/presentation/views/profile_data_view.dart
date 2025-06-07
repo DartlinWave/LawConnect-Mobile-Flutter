@@ -41,7 +41,7 @@ class ProfileDataView extends StatelessWidget {
               border: Border.all(color: ColorPalette.mainButtonColor)
             ),
             child: Text(
-              clients[0].name + clients[0].lastName,
+              clients[0].name + " " + clients[0].lastName,
               style: TextStyle(
                 color: ColorPalette.blackColor,
               ),
