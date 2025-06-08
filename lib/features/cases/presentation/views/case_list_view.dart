@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_accepted_page.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_closed_page.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_in_evaluation_page.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_open_page.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/case_card_view.dart';
 
 class CaseListView extends StatelessWidget {
@@ -12,20 +16,25 @@ void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
 
     switch (caseEntity.status) {
       case "OPEN":
-        page = FollowUp
+        page = FollowUpOpenPage(caseEntity: caseEntity);
         break;
       case "IN_EVALUATION":
-        page = Container(); // Replace with InEvaluationCaseFollowUpPage
+        page = FollowUpInEvaluationPage(caseEntity: caseEntity);
         break;
       case "ACCEPTED":
-        page = Container(); // Replace with AcceptedCaseFollowUpPage
+        page = FollowUpAcceptedPage(caseEntity: caseEntity);
         break;
       case "CLOSED":
-        page = Container(); // Replace with ClosedCaseFollowUpPage
+        page = FollowUpClosedPage(caseEntity: caseEntity);
         break;
       default:
         throw Exception("Unknown case status: ${caseEntity.status}");
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 
   @override
@@ -40,9 +49,7 @@ void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
         final caseItem = cases[index];
         return CaseCardView(
           caseEntity: caseItem, 
-          onFollowUpToCase: () {
-
-          }
+          onFollowUpToCase: () => _navigateToCaseFollowUp(context, caseItem),
         );
        }
       );
