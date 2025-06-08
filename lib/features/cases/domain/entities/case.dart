@@ -3,6 +3,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/applica
 class Case {
   final int id;
   final int clientId;
+  final int lawyerId; // Nullable if the case is not assigned to a lawyer
   final String title;
   final String description;
   final String specialty;
@@ -15,6 +16,7 @@ class Case {
   Case({
     required this.id,
     required this.clientId,
+    required this.lawyerId,
     required this.title,
     required this.description,
     required this.specialty,
