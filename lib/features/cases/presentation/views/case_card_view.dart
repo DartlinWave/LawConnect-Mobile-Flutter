@@ -80,7 +80,7 @@ class CaseCardView extends StatelessWidget {
               onPressed: onFollowUpToCase,
               width: 103,
               height: 34,
-              backgroundColor: ColorPalette.primaryColor,
+              backgroundColor: ColorPalette.lighterButtonColor,
             ),
           ],
         ),
