@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 
 class FollowUpClosedPage extends StatefulWidget {
-  const FollowUpClosedPage({super.key});
+  const FollowUpClosedPage({super.key, required this.caseEntity});
+
+  final Case caseEntity;
 
   @override
   State<FollowUpClosedPage> createState() => _FollowUpClosedPageState();
