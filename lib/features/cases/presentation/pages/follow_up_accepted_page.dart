@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
@@ -22,10 +23,23 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
   late final Client client;
   late final Lawyer lawyer;
 
+
+  // These are just placeholders for the actual path
+
   void _navigateToFullCase() {
-    // This is just a placeholder for the actual navigation logic
     Navigator.pushNamed(context, '/path-to-insert', arguments: caseEntity);
   }
+
+void _navigateToFullProfileLawyer() {
+    Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);    
+  }
+
+  void _navigateToContactLawyer() {
+    Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);
+  }
+
+  
+  
 
   final List<Client> _client = [
     Client(
@@ -79,6 +93,12 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
               SizedBox(height: 16),
 
               SummaryView(caseEntity: caseEntity, lawyer: lawyer, onShowFullCase: _navigateToFullCase),
+
+              SizedBox(height: 16),
+
+              SelectedLawyerView(caseEntity: caseEntity, lawyer: lawyer, onFullProfile: _navigateToFullProfileLawyer, onContact: _navigateToContactLawyer)
+
+
             ],
           ),
         ),

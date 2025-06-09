@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
-import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 
 class SummaryView extends StatelessWidget {
   const SummaryView({
@@ -74,14 +73,6 @@ class SummaryView extends StatelessWidget {
                 ),
                 child: Text("Show Full Case"),
               ),
-
-              /* BasicButton(
-                text: "Show Full Case",
-                onPressed: onShowFullCase,
-                width: 129,
-                height: 34,
-                backgroundColor: ColorPalette.extraButtonColor,
-              )*/
             ],
           ),
           SizedBox(height: 12),
