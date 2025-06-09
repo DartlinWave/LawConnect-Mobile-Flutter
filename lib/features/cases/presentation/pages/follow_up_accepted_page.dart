@@ -22,6 +22,11 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
   late final Client client;
   late final Lawyer lawyer;
 
+  void _navigateToFullCase() {
+    // This is just a placeholder for the actual navigation logic
+    Navigator.pushNamed(context, '/path-to-insert', arguments: caseEntity);
+  }
+
   final List<Client> _client = [
     Client(
       id: 1,
@@ -35,7 +40,7 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
     ),
   ];
 
-  final List<Lawyer> _lawyers = [
+  final List<Lawyer> _lawyer = [
     Lawyer(
       id: 12,
       userId: 12,
@@ -56,7 +61,7 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
     super.initState();
     caseEntity = widget.caseEntity;
     client = _client.firstWhere((c) => c.id == caseEntity.clientId);
-    lawyer = _lawyers.firstWhere((l) => l.id == caseEntity.lawyerId);
+    lawyer = _lawyer.firstWhere((l) => l.id == caseEntity.lawyerId);
   }
 
   @override
@@ -73,7 +78,7 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
 
               SizedBox(height: 16),
 
-              SummaryView(caseEntity: caseEntity)
+              SummaryView(caseEntity: caseEntity, lawyer: lawyer, onShowFullCase: _navigateToFullCase),
             ],
           ),
         ),

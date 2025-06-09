@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/applicant.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 
