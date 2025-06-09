@@ -19,20 +19,6 @@ class SelectedLawyerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusLabel = {
-      "OPEN_STATUS": "Open",
-      "IN_EVALUATION_STATUS": "In Evaluation",
-      "ACCEPTED_STATUS": "Accepted",
-      "CLOSED_STATUS": "Closed",
-    };
-
-    final statusColor = {
-      "OPEN_STATUS": ColorPalette.openColor,
-      "IN_EVALUATION_STATUS": ColorPalette.inEvaluationColor,
-      "ACCEPTED_STATUS": ColorPalette.acceptedColor,
-      "CLOSED_STATUS": ColorPalette.closedColor,
-    };
-
     return Padding(
       padding: EdgeInsets.all(16),
       child: Column(
