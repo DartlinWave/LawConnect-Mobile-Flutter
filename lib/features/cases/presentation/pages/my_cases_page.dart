@@ -145,6 +145,13 @@ class _MyCasesPageState extends State<MyCasesPage> {
                 Expanded(
                   child: CaseListView(cases: filteredCases),
                 ),
+
+                FloatingActionButton(
+                  onPressed: () { // Todo: button functionality for new case
+                }, 
+                  backgroundColor: ColorPalette.lighterButtonColor,
+                  child: Icon(Icons.note_add, color: ColorPalette.blackColor),
+                ),
             ],
           ),
         ),
