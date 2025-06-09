@@ -62,7 +62,7 @@ class SelectedLawyerView extends StatelessWidget {
               SizedBox(width: 12),
 
               // Name, specialty and rating with stars
-              
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +107,8 @@ class SelectedLawyerView extends StatelessWidget {
                     child: Text("Full Profile"),
                   ),
 
+                  SizedBox(height: 16),
+
                   TextButton(
                     onPressed: onContact,
                     style: TextButton.styleFrom(
@@ -119,7 +121,13 @@ class SelectedLawyerView extends StatelessWidget {
               ),
             ],
           ),
+          
+          SizedBox(height: 12),
+          Divider(color: ColorPalette.blackColor, height: 1),
+
+
         ],
+
       ),
     );
   }

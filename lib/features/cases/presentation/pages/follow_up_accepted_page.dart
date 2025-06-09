@@ -94,8 +94,6 @@ void _navigateToFullProfileLawyer() {
 
               SummaryView(caseEntity: caseEntity, lawyer: lawyer, onShowFullCase: _navigateToFullCase),
 
-              SizedBox(height: 16),
-
               SelectedLawyerView(caseEntity: caseEntity, lawyer: lawyer, onFullProfile: _navigateToFullProfileLawyer, onContact: _navigateToContactLawyer)
 
 
