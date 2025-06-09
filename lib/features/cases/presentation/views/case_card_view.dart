@@ -20,20 +20,26 @@ class CaseCardView extends StatelessWidget {
     // To manage the status
 
     final statusLabel = {
-      "OPEN": "Open",
-      "IN_EVALUATION": "In Evaluation",
-      "ACCEPTED": "Accepted",
-      "CLOSED": "Closed",
+      "OPEN_STATUS": "Open",
+      "IN_EVALUATION_STATUS": "In Evaluation",
+      "ACCEPTED_STATUS": "Accepted",
+      "CLOSED_STATUS": "Closed",
     };
 
     final statusColor = {
-      "OPEN": ColorPalette.openColor,
-      "IN_EVALUATION": ColorPalette.inEvaluationColor,
-      "ACCEPTED": ColorPalette.acceptedColor,
-      "CLOSED": ColorPalette.closedColor,
+      "OPEN_STATUS": ColorPalette.openColor,
+      "IN_EVALUATION_STATUS": ColorPalette.inEvaluationColor,
+      "ACCEPTED_STATUS": ColorPalette.acceptedColor,
+      "CLOSED_STATUS": ColorPalette.closedColor,
     };
 
     return Card(
+      color: ColorPalette.whiteColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: ColorPalette.primaryColor, width: 1),
+      ),
+
       child: Padding(
         padding: EdgeInsets.all(8),
         child: Column(
@@ -42,32 +48,35 @@ class CaseCardView extends StatelessWidget {
             Text(
               caseEntity.title,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             Expanded(
               child: Hero(
                 tag: caseEntity.id,
-                child: Image.network(caseEntity.image, fit: BoxFit.cover),
+                child: Image.network(caseEntity.image, fit: BoxFit.contain),
               ),
             ),
 
             SizedBox(height: 8),
 
-            Text.rich(
-              TextSpan(
-                text: "State: ",
-                children: [
-                  TextSpan(
-                    text: statusLabel[caseEntity.status] ?? "ERROR",
-                    style: TextStyle(
-                      color:
-                          statusColor[caseEntity.status] ??
-                          ColorPalette.blackColor,
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  text: "State: ",
+                  children: [
+                    TextSpan(
+                      text: statusLabel[caseEntity.status] ?? "ERROR",
+                      style: TextStyle(
+                        color:
+                            statusColor[caseEntity.status] ??
+                            ColorPalette.blackColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            if (caseEntity.status == "IN_EVALUATION")
+            if (caseEntity.status == "IN_EVALUATION_STATUS")
               Text(
                 "Applications received: ${caseEntity.applicants.length}",
                 style: TextStyle(color: ColorPalette.blackColor),
@@ -80,7 +89,7 @@ class CaseCardView extends StatelessWidget {
               onPressed: onFollowUpToCase,
               width: 103,
               height: 34,
-              backgroundColor: ColorPalette.lighterButtonColor,
+              backgroundColor: ColorPalette.extraButtonColor,
             ),
           ],
         ),
