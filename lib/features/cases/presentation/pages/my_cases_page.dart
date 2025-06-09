@@ -27,7 +27,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
   ];
 
 
-    final List<Case> mockCases = [
+    final List<Case> _cases = [
   Case(
     id: 1,
     clientId: 1,
