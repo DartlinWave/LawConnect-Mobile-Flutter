@@ -34,6 +34,7 @@ class CaseCardView extends StatelessWidget {
     };
 
     return Card(
+      
       color: ColorPalette.whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
