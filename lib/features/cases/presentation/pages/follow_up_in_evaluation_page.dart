@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/applicant.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 
 class FollowUpInEvaluationPage extends StatefulWidget {
-  const FollowUpInEvaluationPage({super.key, required this.caseEntity});
+  const FollowUpInEvaluationPage({super.key, required this.caseEntity, required this.client});
 
   final Case caseEntity;
+  final Client client;
 
   @override
   State<FollowUpInEvaluationPage> createState() =>
