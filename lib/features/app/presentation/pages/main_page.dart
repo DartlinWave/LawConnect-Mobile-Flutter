@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/my_cases_page.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/pages/home_page.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 
@@ -15,7 +16,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = [
     HomePage(),
     Text("Lawyers"),
-    Text("Cases"),
+    MyCasesPage(),
     Text("Profile"),
   ];
 
