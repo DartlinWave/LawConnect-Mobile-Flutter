@@ -15,16 +15,16 @@ void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
     Widget page;
 
     switch (caseEntity.status) {
-      case "OPEN":
+      case "OPEN_STATUS":
         page = FollowUpOpenPage(caseEntity: caseEntity);
         break;
-      case "IN_EVALUATION":
+      case "IN_EVALUATION_STATUS":
         page = FollowUpInEvaluationPage(caseEntity: caseEntity);
         break;
-      case "ACCEPTED":
+      case "ACCEPTED_STATUS":
         page = FollowUpAcceptedPage(caseEntity: caseEntity);
         break;
-      case "CLOSED":
+      case "CLOSED_STATUS":
         page = FollowUpClosedPage(caseEntity: caseEntity);
         break;
       default:
