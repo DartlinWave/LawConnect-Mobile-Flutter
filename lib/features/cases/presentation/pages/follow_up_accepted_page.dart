@@ -58,7 +58,7 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
       SnackBar(
         content: Text("Caso cerrado exitosamente"),
         backgroundColor: ColorPalette.greyColor,
-        duration: Duration(seconds: 5),
+        duration: Duration(seconds: 2),
       ),
     );
   }
