@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/actions_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/timeline_view.dart';
@@ -98,9 +99,9 @@ void _navigateToFullProfileLawyer() {
               SelectedLawyerView(caseEntity: caseEntity, lawyer: lawyer, onFullProfile: _navigateToFullProfileLawyer, onContact: _navigateToContactLawyer),
 
 
-              TimelineView(caseEntity: caseEntity)
+              TimelineView(caseEntity: caseEntity),
 
-
+              ActionsView(caseEntity: caseEntity)
 
             ],
           ),
