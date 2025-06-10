@@ -8,6 +8,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/time
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
+import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 
 class FollowUpAcceptedPage extends StatefulWidget {
   const FollowUpAcceptedPage({
@@ -30,6 +31,8 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
   late final Client client;
   late final Lawyer lawyer;
 
+  bool _isClose = false;
+
   // These are just placeholders for the actual path
 
   void _navigateToFullCase() {
@@ -42,6 +45,22 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
 
   void _navigateToContactLawyer() {
     Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);
+  }
+
+  void _closeCase() {
+    setState(() {
+      _isClose = true;
+    });
+
+    // a snackbar so it shows the client that the case was closed successfully
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Caso cerrado exitosamente"),
+        backgroundColor: ColorPalette.greyColor,
+        duration: Duration(seconds: 5),
+      ),
+    );
   }
 
   final List<Client> _client = [
@@ -110,10 +129,22 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
 
               ActionsView(caseEntity: caseEntity),
 
-              BackButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              Row(
+                children: [
+                  BackButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(width: 50),
+                  BasicButton(
+                    text: "Finish Case",
+                    onPressed: _closeCase,
+                    width: 184,
+                    height: 52,
+                    backgroundColor: ColorPalette.primaryColor,
+                  )
+                ],
               ),
             ],
           ),
