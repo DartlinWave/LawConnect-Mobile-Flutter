@@ -10,7 +10,12 @@ import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawy
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class FollowUpAcceptedPage extends StatefulWidget {
-  const FollowUpAcceptedPage({super.key, required this.caseEntity, required this.client, required this.lawyer});
+  const FollowUpAcceptedPage({
+    super.key,
+    required this.caseEntity,
+    required this.client,
+    required this.lawyer,
+  });
 
   final Case caseEntity;
   final Client client;
@@ -25,23 +30,19 @@ class _FollowUpAcceptedPageState extends State<FollowUpAcceptedPage> {
   late final Client client;
   late final Lawyer lawyer;
 
-
   // These are just placeholders for the actual path
 
   void _navigateToFullCase() {
     Navigator.pushNamed(context, '/path-to-insert', arguments: caseEntity);
   }
 
-void _navigateToFullProfileLawyer() {
-    Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);    
+  void _navigateToFullProfileLawyer() {
+    Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);
   }
 
   void _navigateToContactLawyer() {
     Navigator.pushNamed(context, '/path-to-insert', arguments: lawyer);
   }
-
-  
-  
 
   final List<Client> _client = [
     Client(
@@ -92,17 +93,28 @@ void _navigateToFullProfileLawyer() {
             children: [
               BasicAppBar(title: client.username),
 
-              SizedBox(height: 16),
+              SummaryView(
+                caseEntity: caseEntity,
+                lawyer: lawyer,
+                onShowFullCase: _navigateToFullCase,
+              ),
 
-              SummaryView(caseEntity: caseEntity, lawyer: lawyer, onShowFullCase: _navigateToFullCase),
-
-              SelectedLawyerView(caseEntity: caseEntity, lawyer: lawyer, onFullProfile: _navigateToFullProfileLawyer, onContact: _navigateToContactLawyer),
-
+              SelectedLawyerView(
+                caseEntity: caseEntity,
+                lawyer: lawyer,
+                onFullProfile: _navigateToFullProfileLawyer,
+                onContact: _navigateToContactLawyer,
+              ),
 
               TimelineView(caseEntity: caseEntity),
 
-              ActionsView(caseEntity: caseEntity)
+              ActionsView(caseEntity: caseEntity),
 
+              BackButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
         ),

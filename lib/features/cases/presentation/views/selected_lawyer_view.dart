@@ -93,7 +93,7 @@ class SelectedLawyerView extends StatelessWidget {
                     child: Text("Full Profile"),
                   ),
 
-                  SizedBox(height: 16),
+                  SizedBox(height: 6),
 
                   TextButton(
                     onPressed: onContact,
@@ -108,7 +108,7 @@ class SelectedLawyerView extends StatelessWidget {
             ],
           ),
           
-          SizedBox(height: 12),
+          SizedBox(height: 6),
           Divider(color: ColorPalette.blackColor, height: 1),
 
 

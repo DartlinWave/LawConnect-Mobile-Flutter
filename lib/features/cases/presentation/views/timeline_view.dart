@@ -26,7 +26,7 @@ class TimelineView extends StatelessWidget {
               color: ColorPalette.blackColor,
             ),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 6),
 
           // events from case
           Column(
@@ -53,7 +53,7 @@ class TimelineView extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 16),
+          SizedBox(height: 6),
 
           if (caseEntity.status != "OPEN_STATUS")
             Column(
@@ -80,7 +80,7 @@ class TimelineView extends StatelessWidget {
               ],
             ),
 
-          SizedBox(height: 16),
+          SizedBox(height: 6),
 
 
           if (caseEntity.status != "ACCEPTED_STATUS" ||
@@ -109,7 +109,7 @@ class TimelineView extends StatelessWidget {
               ],
             ),
 
-          SizedBox(height: 16),
+          SizedBox(height: 6),
 
 
           if (caseEntity.status != "CLOSED_STATUS") 
@@ -137,7 +137,7 @@ class TimelineView extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 16),
+          SizedBox(height: 6),
 
           Divider(color: ColorPalette.blackColor, height: 1),
 
