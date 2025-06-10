@@ -12,6 +12,7 @@ class Case {
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<Applicant> applicants;
+  final String comment;
 
   Case({
     required this.id,
@@ -25,6 +26,7 @@ class Case {
     required this.createdAt,
     required this.updatedAt,
     required this.applicants,
+    required this.comment,
   });
 
 }

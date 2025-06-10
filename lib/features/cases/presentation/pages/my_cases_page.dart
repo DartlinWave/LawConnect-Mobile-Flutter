@@ -43,6 +43,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
       image:
           'https://www.shutterstock.com/image-photo/law-theme-gavel-mallet-judge-600nw-2478909667.jpg',
       applicants: [],
+      comment: '',
     ),
 
     Case(
@@ -58,6 +59,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
       image:
           'https://media.istockphoto.com/id/1614868242/photo/criminal-talking-to-detective.jpg?s=612x612&w=0&k=20&c=s-d--Z_HIbwCMSzcTafUrN0nxgi2Dqq0W5ISrZoSdOc=',
       applicants: [],
+      comment: '',
     ),
 
     Case(
@@ -73,6 +75,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
       image:
           'https://media.istockphoto.com/id/1305460236/vector/two-hands-are-tearing-icon-of-house-concept-of-real-estate-division.jpg?s=612x612&w=0&k=20&c=PiGw89p35wlUF3_T0nN8yHPKgF1a0B2a9-oOfP0MfU8=',
       applicants: [],
+      comment: 'Buen abogado, me ayudó mucho con mi caso.',
     ),
 
     Case(
@@ -88,6 +91,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
       image:
           'https://www.ilr.cornell.edu/sites/default/files-d8/styles/large_9_5/public/Workers-handboo-800x533.jpg?h=c9f93661&itok=_PmNSZif',
       applicants: [],
+      comment: 'Excelente abogado, resolvió mi caso de manera efectiva.',
     ),
   ];
 
