@@ -1,0 +1,18 @@
+{
+    "roles": [
+        {
+            "id": 1,
+            "name": "ROLE_ADMIN"
+        },
+        {
+            "id": 2,
+            "name": "ROLE_LAWYER"
+        },
+        {
+            "id": 3,
+            "name": "ROLE_CLIENT"
+        }
+    ],
+    "users": []
+
+}
