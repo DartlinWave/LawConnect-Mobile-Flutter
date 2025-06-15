@@ -4,7 +4,7 @@ class Lawyer {
   final String specialty;
   final String description;
   final String image;
-  
+  final List<Map<String, String>> customers;
 
   Lawyer({
     required this.name,
@@ -12,7 +12,6 @@ class Lawyer {
     required this.specialty,
     required this.description,
     required this.image,
-  
+    this.customers = const [],
   });
-  
 }
