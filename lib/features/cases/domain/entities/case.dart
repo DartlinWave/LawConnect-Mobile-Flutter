@@ -1,6 +1,3 @@
-import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
-
 class Case {
   final String id;
   final String clientId;
@@ -10,9 +7,6 @@ class Case {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String image;
-  final List<Invitation> invitations;
-  final List<Comment> comments;
-
 
   Case({
     required this.id,
@@ -23,8 +17,6 @@ class Case {
     required this.image,
     required this.createdAt,
     required this.updatedAt,
-    required this.invitations,
-    required this.comments,
   });
 
 }
