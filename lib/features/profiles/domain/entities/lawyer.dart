@@ -8,7 +8,7 @@ class Lawyer {
   final String dni;
   final ContactInfo contactInfo;
   final String description;
-  final List<Specialty> specialties;
+  final List<String> specialties;
   final String image;
   final double rating;
 
@@ -25,6 +25,8 @@ class Lawyer {
   });
 }
 
+
+/* just in case it's needed for a filter
 enum Specialty {
   CRIMINAL_LAW,
   CIVIL_LITIGATION,
@@ -65,3 +67,4 @@ enum Specialty {
   AVIATION_LAW,
   ANIMAL_LAW,
 }
+*/
