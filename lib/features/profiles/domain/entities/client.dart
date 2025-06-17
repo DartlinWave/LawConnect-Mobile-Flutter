@@ -1,19 +1,20 @@
+import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/contact_info.dart';
+import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/person_name.dart';
+
 class Client {
-  final int id;
-  final int userId;
-  final String name;
-  final String lastName;
+  final String id;
+  final String userId;
+  final PersonName fullName;
   final String dni;
-  final String username;
+  final ContactInfo contactInfo;
   final String image;
 
   Client({
     required this.id,
     required this.userId,
-    required this.name,
-    required this.lastName,
+    required this.fullName,
     required this.dni,
-    required this.username,
+    required this.contactInfo,
     required this.image,
   });
 }
