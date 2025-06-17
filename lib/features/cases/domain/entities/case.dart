@@ -6,7 +6,7 @@ class Case {
   final String clientId;
   final String title;
   final String description;
-  final String status;
+  final CaseStatus status;
   final DateTime createdAt;
   final DateTime updatedAt;
   final String image;
