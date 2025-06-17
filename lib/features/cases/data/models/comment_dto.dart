@@ -1,0 +1,41 @@
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
+
+class CommentDto {
+  final int commentId;
+  final String caseId;
+  final String authorId;
+  final CommentStatus status;
+  final String comment;
+  final DateTime createdAt;
+
+  const CommentDto({
+    required this.commentId,
+    required this.caseId,
+    required this.authorId,
+    required this.status,
+    required this.comment,
+    required this.createdAt,
+  });
+
+  factory CommentDto.fromJson(Map<String, dynamic> json) {
+    return CommentDto(
+      commentId: json['commentId'] as int,
+      caseId: json['caseId'] as String,
+      authorId: json['authorId'] as String,
+      status: CommentStatus.values.byName(json['status'] as String),
+      comment: json['comment'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+    );
+  }
+
+  Comment toDomain() {
+    return Comment(
+      commentId: commentId,
+      caseId: caseId,
+      authorId: authorId,
+      status: status,
+      comment: comment,
+      createdAt: createdAt,
+    );
+  }
+}
