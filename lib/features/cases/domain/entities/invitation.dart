@@ -2,7 +2,7 @@ class Invitation {
   final String id;
   final String caseId;
   final String lawyerId;
-  final String status;
+  final InvitationStatus status;
 
   Invitation({
     required this.id,
@@ -10,4 +10,10 @@ class Invitation {
     required this.lawyerId,
     required this.status,
   });
+}
+
+enum InvitationStatus {
+  PENDING,
+  ACCEPTED,
+  REJECTED,
 }
