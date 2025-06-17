@@ -1,32 +1,38 @@
-import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/applicant.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 
 class Case {
-  final int id;
-  final int clientId;
-  final int lawyerId; // Nullable if the case is not assigned to a lawyer
+  final String id;
+  final String clientId;
   final String title;
   final String description;
-  final String specialty;
   final String status;
-  final String image;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<Applicant> applicants;
-  final String comment;
+  final String image;
+  final List<Invitation> invitations;
+  final List<Comment> comments;
+
 
   Case({
     required this.id,
     required this.clientId,
-    required this.lawyerId,
     required this.title,
     required this.description,
-    required this.specialty,
     required this.status,
     required this.image,
     required this.createdAt,
     required this.updatedAt,
-    required this.applicants,
-    required this.comment,
+    required this.invitations,
+    required this.comments,
   });
 
+}
+
+enum CaseStatus {
+  OPEN,
+  EVALUATION,
+  ACCEPTED,
+  CLOSED,
+  CANCELED
 }
