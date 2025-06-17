@@ -6,7 +6,7 @@ class UserDto {
   final String password;
   final int roleId;
 
-  UserDto({
+  const UserDto({
     required this.id,
     required this.username,
     required this.password,
