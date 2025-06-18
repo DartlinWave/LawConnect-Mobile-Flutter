@@ -19,13 +19,13 @@ class AuthService {
     final response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      final List<dynamic> body = jsonDecode(response.body) as List<dynamic>;
+      List users = jsonDecode(response.body) as List;
 
-      if (body.isEmpty) {
+      if (users.isEmpty) {
         throw Exception('User not found');
       }
 
-      final userDto = UserDto.fromJson(body.first as Map<String, dynamic>);
+      final userDto = UserDto.fromJson(users.first as Map<String, dynamic>);
       return userDto.toDomain();
 
     } else {
