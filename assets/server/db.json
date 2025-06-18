@@ -17,19 +17,19 @@
         {
             "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "username": "janedoe12",
-            "password": "$2b$10$EIX9Z5z3Y7f8Q0a5F4e5uO8j1k5h6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z",
+            "password": "jd12",
             "roleId": 3
         },
         {
             "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
             "username": "johnny98",
-            "password": "$2b$10$EIX9Z5z3Y7f8Q0a5F4e5uO8j1k5h6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z",
+            "password": "j98",
             "roleId": 2
         },
         {
             "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
             "username": "dgon79",
-            "password": "$2b$10$EIX9Z5z3Y7f8Q0a5F4e5uO8j1k5h6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z",
+            "password": "dgon79",
             "roleId": 2
         }
     ],
