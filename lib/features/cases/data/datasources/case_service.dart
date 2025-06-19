@@ -26,7 +26,7 @@ class CaseService {
     }
   }
 
-  Future<CaseDto> updateCaseStatus(String caseId, String newStatus) async {
+  Future<Case> updateCaseStatus(String caseId, String newStatus) async {
     final uri = Uri.parse('http://10.0.2.2:3000/cases/$caseId');
     final response = await http.patch(
       uri,
@@ -36,7 +36,7 @@ class CaseService {
 
     if (response.statusCode == HttpStatus.ok) {
       final caseData = jsonDecode(response.body);
-      return CaseDto.fromJson(caseData);
+      return CaseDto.fromJson(caseData).toDomain();
     } else {
       throw Exception('Failed to update case status: ${response.statusCode} for case $caseId');
     }
