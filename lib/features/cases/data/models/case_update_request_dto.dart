@@ -1,18 +1,15 @@
-class CaseRequestDto {
+class CaseUpdateRequestDto {
   final String status;
-  final String comment;
   final String updatedAt;
 
-  const CaseRequestDto({
+  const CaseUpdateRequestDto({
     required this.status,
-    required this.comment,
     required this.updatedAt,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'status': status,
-      'comment': comment,
       'updatedAt': updatedAt,
     };
   }
