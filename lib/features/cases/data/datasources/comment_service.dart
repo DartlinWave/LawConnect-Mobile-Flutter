@@ -7,22 +7,22 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment
 import 'package:http/http.dart' as http;
 
 class CommentService {
-  Future<List<Comment>> fetchCommentByCase(String caseId) async {
+  Future<Comment> fetchCommentByCaseId(String caseId) async {
     final uri = Uri.parse('http://10.0.2.2:3000/comments')
     .replace(queryParameters: {'caseId': caseId});
     
     final response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      List comments = jsonDecode(response.body);
+      final comment = jsonDecode(response.body);
 
-      if (comments.isEmpty) {
-        throw Exception('There are no comments for this case');
+      if (comment.isEmpty) {
+        throw Exception('There is no comment for this case');
       }
 
-      return comments.map((comment) => CommentDto.fromJson(comment).toDomain()).toList();
+      return CommentDto.fromJson(comment).toDomain();
     } else {
-      throw Exception('Failed to fetch comments: ${response.statusCode} for case $caseId');
+      throw Exception('Failed to fetch comment: ${response.statusCode} for case $caseId');
     }
   }
 
