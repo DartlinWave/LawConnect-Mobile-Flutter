@@ -62,4 +62,24 @@ class ProfileService {
       throw Exception('Failed to fetch lawyer: ${response.statusCode}');
     }
   }
+
+  // to get lawyer by caseId
+  Future<Lawyer> fetchLawyerByCaseId(String caseId) async {
+    final uri = Uri.parse('http://10.0.2.2:3000/lawyer_profiles')
+        .replace(queryParameters: {'caseId': caseId});
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final lawyer = jsonDecode(response.body);
+
+      if (lawyer.isEmpty) {
+        throw Exception('No lawyer found for case ID: $caseId');
+      }
+
+      return LawyerDto.fromJson(lawyer.first as Map<String, dynamic>).toDomain();
+    } else {
+      throw Exception('Failed to fetch lawyer: ${response.statusCode} for case $caseId');
+    }
+  }
 }

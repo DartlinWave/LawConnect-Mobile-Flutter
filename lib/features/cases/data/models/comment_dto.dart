@@ -4,7 +4,7 @@ class CommentDto {
   final int commentId;
   final String caseId;
   final String authorId;
-  final CommentStatus status;
+  final CommentType type;
   final String comment;
   final DateTime createdAt;
 
@@ -12,7 +12,7 @@ class CommentDto {
     required this.commentId,
     required this.caseId,
     required this.authorId,
-    required this.status,
+    required this.type,
     required this.comment,
     required this.createdAt,
   });
@@ -22,7 +22,7 @@ class CommentDto {
       commentId: json['commentId'] as int,
       caseId: json['caseId'] as String,
       authorId: json['authorId'] as String,
-      status: CommentStatus.values.byName(json['status'] as String),
+      type: CommentType.values.byName(json['status'] as String),
       comment: json['comment'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
@@ -33,7 +33,7 @@ class CommentDto {
       commentId: commentId,
       caseId: caseId,
       authorId: authorId,
-      status: status,
+      type: type,
       comment: comment,
       createdAt: createdAt,
     );

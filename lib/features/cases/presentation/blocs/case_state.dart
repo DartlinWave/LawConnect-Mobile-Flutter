@@ -30,6 +30,18 @@ class UpdateCaseState extends CaseState {
   const UpdateCaseState({required this.caseEntity});
 }
 
+class CreateCommentState extends CaseState {
+  final Comment comment;
+
+  CreateCommentState({required this.comment});
+}
+
+class FinishCaseState extends CaseState {
+  final Case caseEntity; 
+
+  FinishCaseState({required this.caseEntity});
+}
+
 class ErrorCaseState extends CaseState {
   final String message;
 

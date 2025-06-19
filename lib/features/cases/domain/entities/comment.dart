@@ -2,7 +2,7 @@ class Comment {
   final int commentId;
   final String caseId;
   final String authorId;
-  final CommentStatus status;
+  final CommentType type;
   final String comment;
   final DateTime createdAt;
 
@@ -10,13 +10,13 @@ class Comment {
     required this.commentId,
     required this.caseId,
     required this.authorId,
-    required this.status,
+    required this.type,
     required this.comment,
     required this.createdAt,
   });
 }
 
-enum CommentStatus {
+enum CommentType {
   GENERAL,
   FINAL_REVIEW
 }
