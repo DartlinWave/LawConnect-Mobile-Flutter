@@ -63,6 +63,20 @@ class ProfileService {
     }
   }
 
+  // to get client by id
+  Future<Client> fetchClientById(String id) async {
+    final uri = Uri.parse('http://10.0.2.2:3000/client_profiles/$id');
+    
+    final response = await http.get(uri);
+    
+    if (response.statusCode == HttpStatus.ok) {
+      final clientDto = ClientDto.fromJson(jsonDecode(response.body));
+      return clientDto.toDomain();
+    } else {
+      throw Exception('Failed to fetch client: ${response.statusCode}');
+    }
+  }
+
   // to get lawyer by caseId
   Future<Lawyer> fetchLawyerByCaseId(String caseId) async {
     final uri = Uri.parse('http://10.0.2.2:3000/lawyer_profiles')

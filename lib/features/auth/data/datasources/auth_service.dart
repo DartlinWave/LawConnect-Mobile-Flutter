@@ -10,12 +10,14 @@ import 'package:http/http.dart' as http;
 class AuthService {
   // this will change to POST later
   Future<User> login(String username, String password) async {
-    final Uri uri = Uri.parse('http://10.0.2.2:3000/users')
-    .replace(queryParameters: { //until we have the login endpoint (TODO: connect with backend)
-      'username': username,
-      'password': password,
-    });
-    
+    final Uri uri = Uri.parse('http://10.0.2.2:3000/users').replace(
+      queryParameters: {
+        //until we have the login endpoint (TODO: connect with backend)
+        'username': username,
+        'password': password,
+      },
+    );
+
     final response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
@@ -27,9 +29,21 @@ class AuthService {
 
       final userDto = UserDto.fromJson(users.first as Map<String, dynamic>);
       return userDto.toDomain();
-
     } else {
       throw Exception('Failed to login: ${response.statusCode}');
+    }
+  }
+
+  Future<User> fetchUserById(String userId) async {
+    final uri = Uri.parse('http://10.0.2.2:3000/users/$userId');
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final userDto = UserDto.fromJson(jsonDecode(response.body));
+      return userDto.toDomain();
+    } else {
+      throw Exception('Failed to fetch user: ${response.statusCode}');
     }
   }
 }
