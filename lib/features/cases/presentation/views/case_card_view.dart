@@ -17,20 +17,20 @@ class CaseCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // To manage the status
+    // To manage the status with a map for better readability
 
-    final statusLabel = {
-      "OPEN_STATUS": "Open",
-      "IN_EVALUATION_STATUS": "In Evaluation",
-      "ACCEPTED_STATUS": "Accepted",
-      "CLOSED_STATUS": "Closed",
+    final statusLabel = <CaseStatus, String>{
+      CaseStatus.OPEN: "Open",
+      CaseStatus.EVALUATION: "Evaluation",
+      CaseStatus.ACCEPTED: "Accepted",
+      CaseStatus.CLOSED: "Closed",
     };
 
-    final statusColor = {
-      "OPEN_STATUS": ColorPalette.openColor,
-      "IN_EVALUATION_STATUS": ColorPalette.inEvaluationColor,
-      "ACCEPTED_STATUS": ColorPalette.acceptedColor,
-      "CLOSED_STATUS": ColorPalette.closedColor,
+    final statusColor = <CaseStatus, Color>{
+      CaseStatus.OPEN: ColorPalette.openColor,
+      CaseStatus.EVALUATION: ColorPalette.inEvaluationColor,
+      CaseStatus.ACCEPTED: ColorPalette.acceptedColor,
+      CaseStatus.CLOSED: ColorPalette.closedColor,
     };
 
     return Card(
@@ -77,9 +77,9 @@ class CaseCardView extends StatelessWidget {
                 ),
               ),
             ),
-            if (caseEntity.status == "IN_EVALUATION_STATUS")
+            if (caseEntity.status == CaseStatus.EVALUATION)
               Text(
-                "Applications received: ${caseEntity.applicants.length}",
+                "Applications received: 0",
                 style: TextStyle(color: ColorPalette.blackColor),
               ),
 
