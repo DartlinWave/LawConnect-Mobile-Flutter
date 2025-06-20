@@ -36,7 +36,7 @@
 
     "client_profiles": [
         {
-            "id": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "userId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "fullName": {
                 "firstname": "Jane",
@@ -53,7 +53,7 @@
 
     "lawyer_profiles": [
         {
-            "id": "ab7c27e6-f478-4af5-a166-3986721add05",
+            "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
             "userId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
             "fullName": {
                 "firstname": "John",
@@ -74,7 +74,7 @@
         },
 
         {
-            "id": "55183cda-b4e2-45d2-a515-45e977809f59",
+            "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
             "userId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
             "fullName": {
                 "firstname": "Daniel",
@@ -99,7 +99,7 @@
     "cases": [
         {
             "id": "2faab94a-67bb-4476-b1e7-8a2688c17fbc",
-            "clientId": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "title": "Divorce Case",
             "description": "Divorce case description",
             "status": "OPEN",
@@ -110,7 +110,7 @@
 
         {
             "id": "153ba175-fad9-4f41-bf28-d78d7c799476",
-            "clientId": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "title": "Criminal Defense",
             "description": "Criminal case description",
             "status": "EVALUATION",
@@ -121,7 +121,7 @@
         
         {
             "id": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
-            "clientId": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "title": "Land Dispute",
             "description": "Land dispute case",
             "status": "ACCEPTED",
@@ -132,7 +132,7 @@
 
         {
             "id": "7b35f3a7-9200-417b-99cf-cb216ac26837",
-            "clientId": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
             "title": "Labor Case",
             "description": "Labor rights concern",
             "status": "CLOSED",
@@ -146,7 +146,7 @@
         {
             "id": 1,
             "caseId": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
-            "lawyerId": "ab7c27e6-f478-4af5-a166-3986721add05",
+            "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
             "status":"ACCEPTED"
         },
 
@@ -162,7 +162,7 @@
         {
             "commentId": 1,
             "caseId": "7b35f3a7-9200-417b-99cf-cb216ac26837",
-            "authorId": "ce1b8039-e151-4c13-81be-ce52bbde7643",
+            "authorId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
             "type": "FINAL_REVIEW",
             "comment": "Excelente abogado, resolvió mi caso de manera efectiva.",
             "createdAt": "2023-10-06T12:00:00Z"
