@@ -3,6 +3,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/case_s
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/comment_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/invitation_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/models/comment_request_dto.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
@@ -54,9 +55,9 @@ class CaseBloc extends Bloc<CaseEvent, CaseState> {
 
       final lawyer = await _profileService.fetchLawyerById(acceptedInvitation.lawyerId);
       
-      final comment = await _commentService.fetchCommentByCaseId(event.caseId);
-      
-      emit(LoadedCaseDetailsState(caseEntity: caseEntity, lawyer: lawyer, comment: comment));
+      final finalComment = await _commentService.fetchFinalReviewCommentByCaseId(event.caseId);
+
+      emit(LoadedCaseDetailsState(caseEntity: caseEntity, lawyer: lawyer, comment: finalComment));
     } catch (e) {
       emit(ErrorCaseState(message: e.toString()));
     }

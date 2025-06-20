@@ -19,7 +19,7 @@ class LoadedCasesState extends CaseState {
 class LoadedCaseDetailsState extends CaseState {
   final Case caseEntity;
   final Lawyer lawyer;
-  final Comment comment;
+  final Comment? comment;
 
   const LoadedCaseDetailsState({required this.caseEntity, required this.lawyer, required this.comment});
 }
