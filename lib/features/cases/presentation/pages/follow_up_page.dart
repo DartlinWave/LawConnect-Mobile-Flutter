@@ -3,10 +3,9 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.da
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 
 class FollowUpPage extends StatefulWidget {
-  const FollowUpPage({super.key, required this.chosenCase, required this.client});
+  const FollowUpPage({super.key, required this.chosenCase});
 
   final Case chosenCase;
-  final Client client;
 
   @override
   State<FollowUpPage> createState() => _FollowUpPageState();
@@ -35,10 +34,6 @@ class _FollowUpPageState extends State<FollowUpPage> {
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 8),
-              Text(
-                "Client Name: ${widget.client.fullName}",
-                style: TextStyle(fontSize: 18),
-              ),
             ],
           ),
         ),
