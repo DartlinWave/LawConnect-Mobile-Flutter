@@ -8,9 +8,12 @@ import 'package:lawconnect_mobile_flutter/features/auth/domain/entities/user.dar
 import 'package:http/http.dart' as http;
 
 class AuthService {
+
+  final String baseUrl = 'http://localhost:3000';
+
   // this will change to POST later
   Future<User> login(String username, String password) async {
-    final Uri uri = Uri.parse('http://10.0.2.2:3000/users').replace(
+    final Uri uri = Uri.parse('$baseUrl/users').replace(
       queryParameters: {
         //until we have the login endpoint (TODO: connect with backend)
         'username': username,
@@ -35,7 +38,7 @@ class AuthService {
   }
 
   Future<User> fetchUserById(String userId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/users/$userId');
+    final uri = Uri.parse('$baseUrl/users/$userId');
 
     final response = await http.get(uri);
 

@@ -7,8 +7,10 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment
 import 'package:http/http.dart' as http;
 
 class CommentService {
+  final String baseUrl = 'http://localhost:3000';
+
   Future<List<Comment>> fetchCommentsByCaseId(String caseId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/comments')
+    final uri = Uri.parse('$baseUrl/comments')
     .replace(queryParameters: {'caseId': caseId});
     
     final response = await http.get(uri);
@@ -27,7 +29,7 @@ class CommentService {
   }
 
   Future<Comment?> fetchFinalReviewCommentByCaseId(String caseId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/comments/final_review')
+    final uri = Uri.parse('$baseUrl/comments')
         .replace(queryParameters: {'caseId': caseId, 'type': 'FINAL_REVIEW'});
 
     final response = await http.get(uri);
@@ -47,7 +49,7 @@ class CommentService {
   }
 
   Future<Comment> createComment(CommentRequestDto request) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/comments');
+    final uri = Uri.parse('$baseUrl/comments');
 
     final response = await http.post(
       uri,

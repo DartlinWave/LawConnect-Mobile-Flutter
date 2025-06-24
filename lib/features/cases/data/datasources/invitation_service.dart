@@ -6,8 +6,11 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/models/invitation_
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 
 class InvitationService {
+
+  final String baseUrl = 'http://localhost:3000';
+
   Future<Invitation> fetchInvitationById(String id) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/invitations/$id');
+    final uri = Uri.parse('$baseUrl/invitations/$id');
 
     final response = await http.get(uri);
 
@@ -20,7 +23,7 @@ class InvitationService {
   }
 
   Future<List<Invitation>> fetchInvitationsByCaseId(String caseId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/invitations')
+    final uri = Uri.parse('$baseUrl/invitations')
         .replace(queryParameters: {'caseId': caseId});
 
     final response = await http.get(uri);

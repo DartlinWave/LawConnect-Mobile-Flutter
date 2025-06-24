@@ -8,8 +8,10 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.da
 import 'package:http/http.dart' as http;
 
 class CaseService {
+  final String baseUrl = 'http://localhost:3000';
+
   Future<List<Case>> fetchCasesByClient(String clientId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/cases')
+    final uri = Uri.parse('$baseUrl/cases')
     .replace(queryParameters: {'clientId': clientId});
 
     final response = await http.get(uri);
@@ -28,7 +30,7 @@ class CaseService {
   }
 
   Future<Case> fetchCaseById(String caseId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/cases/$caseId');
+    final uri = Uri.parse('$baseUrl/cases/$caseId');
     final response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
@@ -45,7 +47,7 @@ class CaseService {
   }
 
   Future<Case> updateCaseStatus(String caseId, String newStatus) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/cases/$caseId');
+    final uri = Uri.parse('$baseUrl/cases/$caseId');
     final response = await http.patch(
       uri,
       headers: {'Content-Type': 'application/json'},
@@ -61,7 +63,7 @@ class CaseService {
   }
 
   Future<Case> finishCaseStatus(String caseId, String newStatus, String comment) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/cases/$caseId');
+    final uri = Uri.parse('$baseUrl/cases/$caseId');
     final response = await http.patch(
       uri,
       headers: {'Content-Type': 'application/json'},

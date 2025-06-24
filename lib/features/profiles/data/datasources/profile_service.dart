@@ -9,9 +9,11 @@ import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawy
 
 class ProfileService {
 
+  final String baseUrl = 'http://localhost:3000';
+
   // to get client profile by userId
   Future<Client> fetchClientProfileByUserId(String userId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/client_profiles')
+    final uri = Uri.parse('$baseUrl/client_profiles')
     .replace(queryParameters: {'userId': userId});
 
     final response = await http.get(uri);
@@ -32,7 +34,7 @@ class ProfileService {
 
   // to get all lawyers
   Future<List<Lawyer>> fetchAllLawyers() async {
-    final uri = Uri.parse('http://10.0.2.2:3000/lawyer_profiles');
+    final uri = Uri.parse('$baseUrl/lawyer_profiles');
 
     final response = await http.get(uri);
 
@@ -51,7 +53,7 @@ class ProfileService {
 
   // to get lawyer by id
   Future<Lawyer> fetchLawyerById(String id) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/lawyer_profiles/$id');
+    final uri = Uri.parse('$baseUrl/lawyer_profiles/$id');
 
     final response = await http.get(uri);
 
@@ -65,7 +67,7 @@ class ProfileService {
 
   // to get client by id
   Future<Client> fetchClientById(String id) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/client_profiles/$id');
+    final uri = Uri.parse('$baseUrl/client_profiles/$id');
     
     final response = await http.get(uri);
     
@@ -79,7 +81,7 @@ class ProfileService {
 
   // to get lawyer by caseId
   Future<Lawyer> fetchLawyerByCaseId(String caseId) async {
-    final uri = Uri.parse('http://10.0.2.2:3000/lawyer_profiles')
+    final uri = Uri.parse('$baseUrl/lawyer_profiles')
         .replace(queryParameters: {'caseId': caseId});
 
     final response = await http.get(uri);
