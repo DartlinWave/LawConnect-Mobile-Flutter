@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_page.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/case_card_view.dart';
-import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
 
 class CaseListView extends StatelessWidget {
-  const CaseListView({super.key, required this.cases, required this.client});
+  const CaseListView({super.key, required this.cases});
 
   final List<Case> cases;
-  final Client client;
 
 void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
 
@@ -16,7 +14,6 @@ void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
       context,
       MaterialPageRoute(builder: (context) => FollowUpPage(
         chosenCase: caseEntity,
-        client: client,
       )),
     );
   }
