@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/case_list_view.dart';
-import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/client.dart';
-import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class MyCasesPage extends StatefulWidget {
@@ -15,123 +19,31 @@ class MyCasesPage extends StatefulWidget {
 
 class _MyCasesPageState extends State<MyCasesPage> {
   String selectedFilter = "All";
+  late final String clientId;
 
-  final List<Client> _client = [
-    Client(
-      id: 1,
-      userId: 1,
-      name: 'Jane',
-      lastName: 'Doe',
-      dni: '12345678',
-      username: 'janedoe12',
-      image:
-          'https://economia3.com/wp-content/uploads/2019/12/Natalia-Juarranz-EQUIPO-HUMANO-450x450.jpg',
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
 
-  final List<Case> _cases = [
-    Case(
-      id: 1,
-      clientId: 1,
-      lawyerId: 0,
-      title: 'Divorce Case',
-      description: 'Divorce case description',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      status: 'OPEN_STATUS',
-      specialty: 'FAMILY',
-      image:
-          'https://www.shutterstock.com/image-photo/law-theme-gavel-mallet-judge-600nw-2478909667.jpg',
-      applicants: [],
-      comment: '',
-    ),
+    final authState = context.read<AuthBloc>().state;
 
-    Case(
-      id: 2,
-      clientId: 1,
-      lawyerId: 0,
-      title: 'Criminal Defense',
-      description: 'Criminal case description',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      status: 'IN_EVALUATION_STATUS',
-      specialty: 'CRIMINAL',
-      image:
-          'https://media.istockphoto.com/id/1614868242/photo/criminal-talking-to-detective.jpg?s=612x612&w=0&k=20&c=s-d--Z_HIbwCMSzcTafUrN0nxgi2Dqq0W5ISrZoSdOc=',
-      applicants: [],
-      comment: '',
-    ),
 
-    Case(
-      id: 3,
-      clientId: 1,
-      lawyerId: 12,
-      title: 'Land Dispute',
-      description: 'Land dispute case',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      status: 'ACCEPTED_STATUS',
-      specialty: 'FAMILY',
-      image:
-          'https://media.istockphoto.com/id/1305460236/vector/two-hands-are-tearing-icon-of-house-concept-of-real-estate-division.jpg?s=612x612&w=0&k=20&c=PiGw89p35wlUF3_T0nN8yHPKgF1a0B2a9-oOfP0MfU8=',
-      applicants: [],
-      comment: 'Buen abogado, me ayudó mucho con mi caso.',
-    ),
 
-    Case(
-      id: 4,
-      clientId: 1,
-      lawyerId: 22,
-      title: 'Labor Case',
-      description: 'Labor rights concern',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      status: 'CLOSED_STATUS',
-      specialty: 'LABOR',
-      image:
-          'https://www.ilr.cornell.edu/sites/default/files-d8/styles/large_9_5/public/Workers-handboo-800x533.jpg?h=c9f93661&itok=_PmNSZif',
-      applicants: [],
-      comment: 'Excelente abogado, resolvió mi caso de manera efectiva.',
-    ),
-  ];
-
- final List<Lawyer> _lawyers = [
-  Lawyer(
-    id: 12,
-    userId: 12,
-    name: 'John',
-    lastName: 'Rivas',
-    dni: '87654321',
-    phone: '987654321',
-    description:
-        'Abogado especializado en derecho de familia, con amplia experiencia en casos de custodia, divorcios y acuerdos de visitas.',
-    specialty: 'FAMILY_LAW',
-    image: 'https://randomuser.me/api/portraits/men/31.jpg',
-    rating: 5,
-  ),
-  Lawyer(
-    id: 22,
-    userId: 22,
-    name: 'Daniel',
-    lastName: 'Gonzalez',
-    dni: '87654322',
-    phone: '987654322',
-    description:
-        'Abogado especializado en derecho laboral, con vasta experiencia en la defensa de trabajadores y resolución de conflictos laborales.',
-    specialty: 'LABOR_LAW',
-    image: 'https://randomuser.me/api/portraits/men/32.jpg',
-    rating: 4.4,
-  ),
-];
-
-  List<Case> get filteredCases {
-    if (selectedFilter == "All") return _cases;
-    return _cases.where((t) => t.status == selectedFilter).toList();
+    if (authState is SuccessAuthState) {
+      clientId = authState.user.id;
+      context.read<CaseBloc>().add(GetCasesEvent(clientId: clientId));
+    } 
   }
 
   @override
   Widget build(BuildContext context) {
-    final client = _client[0];
+    final authState = context.watch<AuthBloc>().state;
+
+
+// to get the username of the client considering the information from the sign in
+    final clientUsername = authState is SuccessAuthState
+        ? authState.user.username
+        : "Unknown User";
 
     return Scaffold(
       backgroundColor: ColorPalette.whiteColor,
@@ -141,7 +53,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BasicAppBar(title: client.username),
+              BasicAppBar(title: clientUsername),
 
               SizedBox(height: 16),
 
@@ -169,10 +81,10 @@ class _MyCasesPageState extends State<MyCasesPage> {
                   items:
                       <String>[
                         "All",
-                        "OPEN_STATUS",
-                        "IN_EVALUATION_STATUS",
-                        "ACCEPTED_STATUS",
-                        "CLOSED_STATUS",
+                        "OPEN",
+                        "EVALUATION",
+                        "ACCEPTED",
+                        "CLOSED",
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -180,9 +92,6 @@ class _MyCasesPageState extends State<MyCasesPage> {
                             value == "All"
                                 ? "All"
                                 : value
-                                      .split("_")
-                                      .join(" ")
-                                      .replaceAll("STATUS", ""),
                           ),
                         );
                       }).toList(),
@@ -191,7 +100,27 @@ class _MyCasesPageState extends State<MyCasesPage> {
 
               SizedBox(height: 16),
 
-              Expanded(child: CaseListView(cases: filteredCases, client: client, allLawyers: _lawyers,)),
+              Expanded(
+                child: BlocBuilder<CaseBloc, CaseState>(
+                  builder: (context, state) {
+                    if (state is LoadingCaseState) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is LoadedCasesState) {
+                      List<Case> cases = state.cases;
+
+                      if (selectedFilter != "All") {
+                        cases = cases.where((c) => c.status.name == selectedFilter).toList();
+                      }
+
+                      return CaseListView(cases: cases);
+                    } else if (state is ErrorCaseState) {
+                      return Center(child: Text("Error loading cases"));
+                    } else {
+                      return Center(child: Text("No cases found"));
+                    }
+                  },
+                ),
+              ),
 
               FloatingActionButton(
                 onPressed: () {
