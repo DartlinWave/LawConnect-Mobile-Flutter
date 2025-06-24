@@ -13,7 +13,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider<AuthBloc>(create: (context) => AuthBloc())],
+      providers: [
+        BlocProvider<AuthBloc>(create: (context) => AuthBloc())
+        ],
       child: MaterialApp(
         title: 'LawConnect Mobile',
         debugShowCheckedModeBanner: false,
