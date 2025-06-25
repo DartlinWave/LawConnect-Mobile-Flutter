@@ -10,9 +10,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case
 import 'package:lawconnect_mobile_flutter/features/profiles/data/datasources/profile_service.dart';
 
 class CaseBloc extends Bloc<CaseEvent, CaseState> {
-
-  CaseBloc() : 
-       super(InitialCaseState()) {
+  CaseBloc() : super(InitialCaseState()) {
     on<GetCasesEvent>(_onGetCases);
     on<GetCaseDetailsEvent>(_onGetCaseDetails);
     on<CreateCommentEvent>(_onCreateComment);
@@ -29,41 +27,60 @@ class CaseBloc extends Bloc<CaseEvent, CaseState> {
     }
   }
 
-  Future<void> _onGetCaseDetails(GetCaseDetailsEvent event, Emitter<CaseState> emit) async {
+  Future<void> _onGetCaseDetails(
+    GetCaseDetailsEvent event,
+    Emitter<CaseState> emit,
+  ) async {
     emit(LoadingCaseState());
     try {
-
-
       final caseEntity = await CaseService().fetchCaseById(event.caseId);
 
-  final invitations = await InvitationService().fetchInvitationsByCaseId(event.caseId);
+      final invitations = await InvitationService().fetchInvitationsByCaseId(
+        event.caseId,
+      );
 
-  final acceptedInvitation = invitations.firstWhere(
-    (inv) => inv.status == InvitationStatus.ACCEPTED,
-    orElse: () => throw Exception('No lawyer was assigned to this case'),
-  );
+      final acceptedInvitation = invitations.firstWhere(
+        (inv) => inv.status == InvitationStatus.ACCEPTED,
+        orElse: () => throw Exception('No lawyer was assigned to this case'),
+      );
 
-      final lawyer = await ProfileService().fetchLawyerById(acceptedInvitation.lawyerId);
+      final lawyer = await ProfileService().fetchLawyerById(
+        acceptedInvitation.lawyerId,
+      );
 
-      final finalComment = await CommentService().fetchFinalReviewCommentByCaseId(event.caseId);
+      final finalComment = await CommentService()
+          .fetchFinalReviewCommentByCaseId(event.caseId);
 
-      final clientProfile = await ProfileService().fetchClientById(caseEntity.clientId);
+      final clientProfile = await ProfileService().fetchClientById(
+        caseEntity.clientId,
+      );
 
       final user = await AuthService().fetchUserById(clientProfile.userId);
-      emit(LoadedCaseDetailsState(caseEntity: caseEntity, lawyer: lawyer, client: clientProfile, user: user, comment: finalComment));
+      emit(
+        LoadedCaseDetailsState(
+          caseEntity: caseEntity,
+          lawyer: lawyer,
+          client: clientProfile,
+          user: user,
+          comment: finalComment,
+        ),
+      );
     } catch (e) {
       emit(ErrorCaseState(message: e.toString()));
     }
   }
 
-  Future<void> _onCreateComment(CreateCommentEvent event, Emitter<CaseState> emit) async {
+  Future<void> _onCreateComment(
+    CreateCommentEvent event,
+    Emitter<CaseState> emit,
+  ) async {
     emit(LoadingCaseState());
 
     try {
       final comment = await CommentService().createComment(
         CommentRequestDto(
-          caseId: event.caseId, 
-          authorId: event.authorId, 
+          caseId: event.caseId,
+          authorId: event.authorId,
           type: event.type,
           comment: event.comment,
           createdAt: DateTime.now().toIso8601String(),
@@ -76,11 +93,18 @@ class CaseBloc extends Bloc<CaseEvent, CaseState> {
     }
   }
 
-  Future<void> _onFinishCase(FinishCaseEvent event, Emitter<CaseState> emit) async {
+  Future<void> _onFinishCase(
+    FinishCaseEvent event,
+    Emitter<CaseState> emit,
+  ) async {
     emit(LoadingCaseState());
 
     try {
-      final closed = await CaseService().finishCaseStatus(event.caseId, event.status, event.comment);
+      final closed = await CaseService().finishCaseStatus(
+        event.caseId,
+        event.status,
+        event.comment,
+      );
 
       emit(FinishCaseState(caseEntity: closed));
     } catch (e) {

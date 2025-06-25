@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
@@ -18,18 +17,18 @@ class SummaryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusLabel = {
-      "OPEN_STATUS": "Open",
-      "IN_EVALUATION_STATUS": "In Evaluation",
-      "ACCEPTED_STATUS": "Accepted",
-      "CLOSED_STATUS": "Closed",
+    final statusLabel = <CaseStatus, String>{
+      CaseStatus.OPEN: "Open",
+      CaseStatus.EVALUATION: "Evaluation",
+      CaseStatus.ACCEPTED: "Accepted",
+      CaseStatus.CLOSED: "Closed",
     };
 
-    final statusColor = {
-      "OPEN_STATUS": ColorPalette.openColor,
-      "IN_EVALUATION_STATUS": ColorPalette.inEvaluationColor,
-      "ACCEPTED_STATUS": ColorPalette.acceptedColor,
-      "CLOSED_STATUS": ColorPalette.closedColor,
+    final statusColor = <CaseStatus, Color>{
+      CaseStatus.OPEN: ColorPalette.openColor,
+      CaseStatus.EVALUATION: ColorPalette.inEvaluationColor,
+      CaseStatus.ACCEPTED: ColorPalette.acceptedColor,
+      CaseStatus.CLOSED: ColorPalette.closedColor,
     };
 
     return Padding(
@@ -77,7 +76,6 @@ class SummaryView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 6),
-          Text(caseEntity.specialty),
           SizedBox(height: 6),
           Divider(color: ColorPalette.blackColor, height: 1),
         ],
@@ -85,4 +83,3 @@ class SummaryView extends StatelessWidget {
     );
   }
 }
-*/

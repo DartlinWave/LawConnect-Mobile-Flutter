@@ -26,9 +26,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
     super.initState();
 
     final authState = context.read<AuthBloc>().state;
-
-
-
+    
     if (authState is SuccessAuthState) {
       clientId = authState.user.id;
       context.read<CaseBloc>().add(GetCasesEvent(clientId: clientId));
