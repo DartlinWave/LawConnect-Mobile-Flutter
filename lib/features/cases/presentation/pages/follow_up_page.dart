@@ -50,7 +50,7 @@ late final String clientId;
 
               SizedBox(height: 16),
               
-              SummaryView(caseEntity: widget.chosenCase, onShowFullCase: _navigateToFullCase)
+              SummaryView(onShowFullCase: _navigateToFullCase)
             ],
           ),
         ),

@@ -8,11 +8,8 @@ import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case
 class SummaryView extends StatelessWidget {
   const SummaryView({
     super.key,
-    required this.caseEntity,
     required this.onShowFullCase,
   });
-
-  final Case caseEntity;
   final VoidCallback onShowFullCase;
 
   @override
