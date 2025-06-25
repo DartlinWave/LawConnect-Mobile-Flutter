@@ -6,6 +6,7 @@ import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_s
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
@@ -20,6 +21,14 @@ class FollowUpPage extends StatefulWidget {
 
 class _FollowUpPageState extends State<FollowUpPage> {
 void _navigateToFullCase() {
+  Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
+}
+
+void _navigateToFullLawyerProfile() {
+  Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
+}
+
+void _navigateToContactLawyer() {
   Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
 }
 
@@ -50,7 +59,9 @@ late final String clientId;
 
               SizedBox(height: 16),
               
-              SummaryView(onShowFullCase: _navigateToFullCase)
+              SummaryView(onShowFullCase: _navigateToFullCase),
+
+              SelectedLawyerView(onFullProfile: _navigateToFullLawyerProfile, onContact: _navigateToContactLawyer),
             ],
           ),
         ),
