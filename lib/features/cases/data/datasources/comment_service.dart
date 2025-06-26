@@ -7,7 +7,9 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment
 import 'package:http/http.dart' as http;
 
 class CommentService {
-  final String baseUrl = 'http://localhost:3000';
+  
+  // final String baseUrl = 'http://localhost:3000';
+  final String baseUrl = 'http://10.0.2.2:3000';
 
   Future<List<Comment>> fetchCommentsByCaseId(String caseId) async {
     final uri = Uri.parse('$baseUrl/comments')

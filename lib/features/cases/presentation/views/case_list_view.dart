@@ -8,13 +8,12 @@ class CaseListView extends StatelessWidget {
 
   final List<Case> cases;
 
-void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
-
+  void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FollowUpPage(
-        chosenCase: caseEntity,
-      )),
+      MaterialPageRoute(
+        builder: (context) => FollowUpPage(chosenCase: caseEntity),
+      ),
     );
   }
 
@@ -25,14 +24,14 @@ void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
       itemCount: cases.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        ),
-       itemBuilder: (context, index) {
+      ),
+      itemBuilder: (context, index) {
         final caseItem = cases[index];
         return CaseCardView(
-          caseEntity: caseItem, 
+          caseEntity: caseItem,
           onFollowUpToCase: () => _navigateToCaseFollowUp(context, caseItem),
         );
-       }
-      );
+      },
+    );
   }
 }
