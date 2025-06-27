@@ -103,8 +103,8 @@
             "title": "Divorce Case",
             "description": "Divorce case description",
             "status": "OPEN",
-            "createdAt": "2023-10-01T12:00:00Z",
-            "updatedAt": "2023-10-02T12:00:00Z",
+            "createdAt": "2025-10-01T12:00:00Z",
+            "updatedAt": "2025-10-02T12:00:00Z",
             "image": "https://www.shutterstock.com/image-photo/law-theme-gavel-mallet-judge-600nw-2478909667.jpg"
         },
 
@@ -114,8 +114,8 @@
             "title": "Criminal Defense",
             "description": "Criminal case description",
             "status": "EVALUATION",
-            "createdAt": "2023-10-01T12:00:00Z",
-            "updatedAt": "2023-10-02T12:00:00Z",
+            "createdAt": "2025-10-01T12:00:00Z",
+            "updatedAt": "2025-10-02T12:00:00Z",
             "image": "https://media.istockphoto.com/id/1614868242/photo/criminal-talking-to-detective.jpg?s=612x612&w=0&k=20&c=s-d--Z_HIbwCMSzcTafUrN0nxgi2Dqq0W5ISrZoSdOc="
         },
         
@@ -125,8 +125,8 @@
             "title": "Land Dispute",
             "description": "Land dispute case",
             "status": "ACCEPTED",
-            "createdAt": "2023-10-01T12:00:00Z",
-            "updatedAt": "2023-10-02T12:00:00Z",
+            "createdAt": "2025-10-01T12:00:00Z",
+            "updatedAt": "2025-10-02T12:00:00Z",
             "image": "https://media.istockphoto.com/id/1305460236/vector/two-hands-are-tearing-icon-of-house-concept-of-real-estate-division.jpg?s=612x612&w=0&k=20&c=PiGw89p35wlUF3_T0nN8yHPKgF1a0B2a9-oOfP0MfU8="
         },
 
@@ -136,8 +136,8 @@
             "title": "Labor Case",
             "description": "Labor rights concern",
             "status": "CLOSED",
-            "createdAt": "2023-10-03T12:00:00Z",
-            "updatedAt": "2023-10-04T12:00:00Z",
+            "createdAt": "2025-10-03T12:00:00Z",
+            "updatedAt": "2025-10-04T12:00:00Z",
             "image": "https://www.ilr.cornell.edu/sites/default/files-d8/styles/large_9_5/public/Workers-handboo-800x533.jpg?h=c9f93661&itok=_PmNSZif"
         }
     ],
@@ -165,7 +165,7 @@
             "authorId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
             "type": "FINAL_REVIEW",
             "comment": "Excelente abogado, resolvió mi caso de manera efectiva.",
-            "createdAt": "2023-10-06T12:00:00Z"
+            "createdAt": "2025-10-04T12:00:00Z"
         }
     ]
 

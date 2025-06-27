@@ -15,6 +15,7 @@ class CaseBloc extends Bloc<CaseEvent, CaseState> {
     on<GetCaseDetailsEvent>(_onGetCaseDetails);
     on<CreateCommentEvent>(_onCreateComment);
     on<FinishCaseEvent>(_onFinishCase);
+    on<ClearCaseDetailsEvent>(_onClearCaseDetails);
   }
 
   Future<void> _onGetCases(GetCasesEvent event, Emitter<CaseState> emit) async {
@@ -110,5 +111,12 @@ class CaseBloc extends Bloc<CaseEvent, CaseState> {
     } catch (e) {
       emit(ErrorCaseState(message: e.toString()));
     }
+  }
+
+  Future<void> _onClearCaseDetails(
+    ClearCaseDetailsEvent event,
+    Emitter<CaseState> emit,
+  ) async {
+    emit(InitialCaseState());
   }
 }

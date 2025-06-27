@@ -55,7 +55,7 @@ class TimelineView extends StatelessWidget {
 
           SizedBox(height: 6),
 
-          if (caseEntity.status != "OPEN_STATUS")
+          if (caseEntity.status == CaseStatus.EVALUATION)
             Column(
               children: [
                 Row(
@@ -83,8 +83,7 @@ class TimelineView extends StatelessWidget {
           SizedBox(height: 6),
 
 
-          if (caseEntity.status != "ACCEPTED_STATUS" ||
-              caseEntity.status != "CLOSED_STATUS")
+          if (caseEntity.status == CaseStatus.ACCEPTED)
             Column(
               children: [
                 Row(
@@ -112,7 +111,7 @@ class TimelineView extends StatelessWidget {
           SizedBox(height: 6),
 
 
-          if (caseEntity.status != "CLOSED_STATUS") 
+          if (caseEntity.status == CaseStatus.CLOSED)
           Column(
             children: [
               Row(
