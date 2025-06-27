@@ -71,6 +71,12 @@ class _FollowUpPageState extends State<FollowUpPage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    BackButton(
+                      color: ColorPalette.blackColor,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+
                     BasicAppBar(title: clientUsername),
 
                     SizedBox(height: 16),
@@ -88,7 +94,21 @@ class _FollowUpPageState extends State<FollowUpPage> {
                   ],
                 );
               }
-              return Text("There was an error loading the case details ${widget.chosenCase.id}");
+              return Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        width: 90,
+                        height: 90,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: ColorPalette.primaryColor,
+                          ),
+                        ),
+                      ),
+                    );
             },
           ),
         ),
