@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
 
 class SummaryView extends StatelessWidget {
   const SummaryView({
     super.key,
+    required this.caseEntity,
     required this.onShowFullCase,
   });
+
+  final Case caseEntity;
   final VoidCallback onShowFullCase;
 
   @override
@@ -28,9 +28,6 @@ class SummaryView extends StatelessWidget {
       CaseStatus.CLOSED: ColorPalette.closedColor,
     };
 
-    return BlocBuilder<CaseBloc, CaseState>(builder: (context, state) {
-      if (state is LoadedCaseDetailsState) {
-        final caseEntity = state.caseEntity;
         return Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -84,9 +81,4 @@ class SummaryView extends StatelessWidget {
           ),
         );
       }
-      return const Text("Error loading case summary");
-    });
-
-    
-  }
 }
