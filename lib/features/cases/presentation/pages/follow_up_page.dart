@@ -6,6 +6,7 @@ import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_s
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
@@ -20,24 +21,36 @@ class FollowUpPage extends StatefulWidget {
 }
 
 class _FollowUpPageState extends State<FollowUpPage> {
-void _navigateToFullCase() {
-  Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
-}
+  void _navigateToFullCase() {
+    Navigator.pushNamed(
+      context,
+      '/path-to-insert',
+      arguments: widget.chosenCase,
+    );
+  }
 
-void _navigateToFullLawyerProfile() {
-  Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
-}
+  void _navigateToFullLawyerProfile() {
+    Navigator.pushNamed(
+      context,
+      '/path-to-insert',
+      arguments: widget.chosenCase,
+    );
+  }
 
-void _navigateToContactLawyer() {
-  Navigator.pushNamed(context, '/path-to-insert', arguments: widget.chosenCase);
-}
-
-late final String clientId;
+  void _navigateToContactLawyer() {
+    Navigator.pushNamed(
+      context,
+      '/path-to-insert',
+      arguments: widget.chosenCase,
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-      context.read<CaseBloc>().add(GetCaseDetailsEvent(caseId: widget.chosenCase.id));
+    context.read<CaseBloc>().add(
+      GetCaseDetailsEvent(caseId: widget.chosenCase.id),
+    );
   }
 
   @override
@@ -52,17 +65,31 @@ late final String clientId;
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BasicAppBar(title: clientUsername),
+          child: BlocBuilder<CaseBloc, CaseState>(
+            builder: (context, state) {
+              if (state is LoadedCaseDetailsState) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BasicAppBar(title: clientUsername),
 
-              SizedBox(height: 16),
-              
-              SummaryView(onShowFullCase: _navigateToFullCase),
+                    SizedBox(height: 16),
 
-              SelectedLawyerView(onFullProfile: _navigateToFullLawyerProfile, onContact: _navigateToContactLawyer),
-            ],
+                    SummaryView(
+                      caseEntity: widget.chosenCase,
+                      onShowFullCase: _navigateToFullCase,
+                    ),
+
+                    SelectedLawyerView(
+                      lawyer: state.lawyer,
+                      onFullProfile: _navigateToFullLawyerProfile,
+                      onContact: _navigateToContactLawyer,
+                    ),
+                  ],
+                );
+              }
+              return Text("There was an error loading the case details.");
+            },
           ),
         ),
       ),
