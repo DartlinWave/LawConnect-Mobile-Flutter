@@ -6,6 +6,7 @@ import 'package:lawconnect_mobile_flutter/features/app/presentation/pages/main_p
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_event.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
+import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           final isLoading = state is LoadingAuthState;
 
           return Scaffold(
+            backgroundColor: ColorPalette.whiteColor,
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Stack(
@@ -54,6 +56,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+
+                        Image.asset(
+                          "assets/images/logo-lawconnect.png",
+                          fit: BoxFit.cover,
+                          width: 120,
+                          height: 120,
+                        ),
+
+                        SizedBox(height: 24),
+                        
                         TextField(
                           cursorColor: ColorPalette.primaryColor,
                           controller: _usernameController,
@@ -72,7 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8),
+
+                        SizedBox(height: 16),
+
                         TextField(
                           cursorColor: ColorPalette.primaryColor,
                           controller: _passwordController,
@@ -103,13 +117,27 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           obscureText: !_isVisible,
                         ),
-                        SizedBox(height: 8),
-                        SizedBox(
-                          width: double.infinity,
-                          child: FilledButton(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: ColorPalette.primaryColor,
+
+                        SizedBox(height: 16),
+
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/path-to-forgot-password');
+                          },
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              color: ColorPalette.openColor,
+                              fontSize: 14,
                             ),
+                          ),
+                        ),
+
+                        SizedBox(height: 16),
+
+                        SizedBox(
+                          child: BasicButton(
+                            text: "Sign In",
                             onPressed: () {
                               context.read<AuthBloc>().add(
                                 LoginEvent(
@@ -118,7 +146,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               );
                             },
-                            child: Text("Sign in"),
+                            width: 275,
+                            height: 40,
+                            backgroundColor: ColorPalette.mainButtonColor,
                           ),
                         ),
                       ],
