@@ -9,8 +9,8 @@ import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawy
 
 class ProfileService {
 
-  // final String baseUrl = 'http://localhost:3000';
-  final String baseUrl = 'http://10.0.2.2:3000';
+  final String baseUrl = 'http://localhost:3000';
+  // final String baseUrl = 'http://10.0.2.2:3000';
 
   // to get client profile by userId
   Future<Client> fetchClientProfileByUserId(String userId) async {

@@ -22,7 +22,7 @@ class CommentDto {
       commentId: json['commentId'] as int,
       caseId: json['caseId'] as String,
       authorId: json['authorId'] as String,
-      type: CommentType.values.byName(json['status'] as String),
+      type: CommentType.values.byName(json['type'] as String),
       comment: json['comment'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );

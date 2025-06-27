@@ -7,8 +7,8 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitat
 
 class InvitationService {
 
-  // final String baseUrl = 'http://localhost:3000';
-  final String baseUrl = 'http://10.0.2.2:3000';
+  final String baseUrl = 'http://localhost:3000';
+  // final String baseUrl = 'http://10.0.2.2:3000';
 
   Future<Invitation> fetchInvitationById(String id) async {
     final uri = Uri.parse('$baseUrl/invitations/$id');

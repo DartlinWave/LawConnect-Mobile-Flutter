@@ -1,5 +1,5 @@
 class Invitation {
-  final String id;
+  final int id;
   final String caseId;
   final String lawyerId;
   final InvitationStatus status;

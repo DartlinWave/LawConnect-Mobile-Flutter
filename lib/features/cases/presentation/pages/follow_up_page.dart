@@ -9,7 +9,6 @@ import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/timeline_view.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class FollowUpPage extends StatefulWidget {
@@ -55,12 +54,6 @@ class _FollowUpPageState extends State<FollowUpPage> {
   }
 
   @override
-  void dispose() {
-    context.read<CaseBloc>().add(ClearCaseDetailsEvent());
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthBloc>().state;
     final clientUsername = authState is SuccessAuthState
@@ -78,15 +71,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.arrow_back, color: ColorPalette.blackColor),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        BasicAppBar(title: clientUsername),
-                      ],
-                    ),
+                    BasicAppBar(title: clientUsername),
 
                     SizedBox(height: 16),
 
@@ -100,14 +85,10 @@ class _FollowUpPageState extends State<FollowUpPage> {
                       onFullProfile: _navigateToFullLawyerProfile,
                       onContact: _navigateToContactLawyer,
                     ),
-
-                    TimelineView(
-                      caseEntity: widget.chosenCase,
-                    )
                   ],
                 );
               }
-              return Text("There was an error loading the case details.");
+              return Text("There was an error loading the case details ${widget.chosenCase.id}");
             },
           ),
         ),

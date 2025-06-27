@@ -37,7 +37,3 @@ class FinishCaseEvent extends CaseEvent {
 
   const FinishCaseEvent({required this.caseId, required this.status, required this.comment});
 }
-
-class ClearCaseDetailsEvent extends CaseEvent {
-  const ClearCaseDetailsEvent();
-}
