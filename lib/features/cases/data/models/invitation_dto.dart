@@ -1,7 +1,7 @@
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 
 class InvitationDto {
-  final int id;
+  final String id;
   final String caseId;
   final String lawyerId;
   final InvitationStatus status;
@@ -15,7 +15,7 @@ class InvitationDto {
 
   factory InvitationDto.fromJson(Map<String, dynamic> json) {
     return InvitationDto(
-      id: json['id'] as int,
+      id: json['id'] as String,
       caseId: json['caseId'] as String,
       lawyerId: json['lawyerId'] as String,
       status: InvitationStatus.values.byName(json['status'] as String),
