@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
         BlocProvider<CaseBloc>(create: (context) => CaseBloc()),
-        ],
+      ],
       child: MaterialApp(
         title: 'LawConnect Mobile',
         debugShowCheckedModeBanner: false,
