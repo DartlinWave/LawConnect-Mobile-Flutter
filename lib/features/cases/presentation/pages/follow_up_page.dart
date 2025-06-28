@@ -4,9 +4,9 @@ import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
@@ -48,7 +48,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CaseBloc>().add(
+    context.read<CaseDetailsBloc>().add(
       GetCaseDetailsEvent(caseId: widget.chosenCase.id),
     );
   }
@@ -65,7 +65,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<CaseBloc, CaseState>(
+          child: BlocBuilder<CaseDetailsBloc, CaseDetailsState>(
             builder: (context, state) {
               if (state is LoadedCaseDetailsState) {
                 return Column(
@@ -94,6 +94,13 @@ class _FollowUpPageState extends State<FollowUpPage> {
                   ],
                 );
               }
+              
+              if (state is ErrorCaseDetailsState) {
+                return Center(
+                   child: Text("Error: ${state.message}", style: TextStyle(color: Colors.red)),
+                );
+              }
+
               return Center(
                       child: Container(
                         decoration: BoxDecoration(
@@ -105,6 +112,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                         child: Center(
                           child: CircularProgressIndicator(
                             color: ColorPalette.primaryColor,
+                            
                           ),
                         ),
                       ),
