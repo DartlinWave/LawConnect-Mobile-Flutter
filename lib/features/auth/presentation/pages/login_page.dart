@@ -151,6 +151,20 @@ class _LoginPageState extends State<LoginPage> {
                             backgroundColor: ColorPalette.mainButtonColor,
                           ),
                         ),
+
+                         SizedBox(height: 16),
+
+                        SizedBox(
+                          child: BasicButton(
+                            text: "Sign Up",
+                            onPressed: () {
+                              // Sign up logic
+                            },
+                            width: 275,
+                            height: 40,
+                            backgroundColor: ColorPalette.mainButtonColor,
+                          ),
+                        ),
                       ],
                     ),
                   ),
