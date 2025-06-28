@@ -7,8 +7,10 @@ import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.da
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_state.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/actions_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/timeline_view.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class FollowUpPage extends StatefulWidget {
@@ -68,55 +70,65 @@ class _FollowUpPageState extends State<FollowUpPage> {
           child: BlocBuilder<CaseDetailsBloc, CaseDetailsState>(
             builder: (context, state) {
               if (state is LoadedCaseDetailsState) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BackButton(
+                        color: ColorPalette.blackColor,
+                        onPressed: () => Navigator.pop(context),
+                      ),
 
-                    BackButton(
-                      color: ColorPalette.blackColor,
-                      onPressed: () => Navigator.pop(context),
-                    ),
+                      BasicAppBar(title: clientUsername),
 
-                    BasicAppBar(title: clientUsername),
+                      SizedBox(height: 16),
 
-                    SizedBox(height: 16),
+                      SummaryView(
+                        caseEntity: widget.chosenCase,
+                        onShowFullCase: _navigateToFullCase,
+                      ),
 
-                    SummaryView(
-                      caseEntity: widget.chosenCase,
-                      onShowFullCase: _navigateToFullCase,
-                    ),
+                      SelectedLawyerView(
+                        lawyer: state.lawyer,
+                        onFullProfile: _navigateToFullLawyerProfile,
+                        onContact: _navigateToContactLawyer,
+                      ),
 
-                    SelectedLawyerView(
-                      lawyer: state.lawyer,
-                      onFullProfile: _navigateToFullLawyerProfile,
-                      onContact: _navigateToContactLawyer,
-                    ),
-                  ],
+                      TimelineView(caseEntity: widget.chosenCase),
+
+                      ActionsView(
+                        caseEntity: widget.chosenCase,
+                        initialComment: state.comment,
+                      ),
+                    ],
+                  ),
                 );
               }
-              
+
               if (state is ErrorCaseDetailsState) {
                 return Center(
-                   child: Text("Error: ${state.message}", style: TextStyle(color: Colors.red)),
+                  child: Text(
+                    "Error: ${state.message}",
+                    style: TextStyle(color: ColorPalette.secondaryColor),
+                  ),
                 );
               }
 
               return Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        width: 90,
-                        height: 90,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: ColorPalette.primaryColor,
-                            
-                          ),
-                        ),
-                      ),
-                    );
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  width: 90,
+                  height: 90,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalette.primaryColor,
+                    ),
+                  ),
+                ),
+              );
             },
           ),
         ),
