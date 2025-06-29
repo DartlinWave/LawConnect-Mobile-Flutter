@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
@@ -55,13 +57,18 @@ class _ActionsViewState extends State<ActionsView> {
       return;
     }
 
-    context.read<CaseDetailsBloc>().add(
-      FinishCaseEvent(
-        caseId: widget.caseEntity.id, 
-        status: "CLOSED", 
-        comment: commentText,
-        ),
-    );
+    final authState = context.read<AuthBloc>().state;
+    if (authState is SuccessAuthState) {
+      final authorId = authState.user.id;
+
+      context.read<CaseDetailsBloc>().add(
+        FinishCaseEvent(
+          caseId: widget.caseEntity.id,
+          authorId: authorId,
+          comment: commentText,
+        )
+      );
+    }
   }
 
   @override
