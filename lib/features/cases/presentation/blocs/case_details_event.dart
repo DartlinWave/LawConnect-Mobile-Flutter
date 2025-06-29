@@ -26,8 +26,8 @@ class UpdateCaseStatusEvent extends CaseDetailsEvent {
 
 class FinishCaseEvent extends CaseDetailsEvent {
   final String caseId;
-  final String status;
+  final String authorId;
   final String comment;
 
-  const FinishCaseEvent({required this.caseId, required this.status, required this.comment});
+  const FinishCaseEvent({required this.caseId, required this.authorId, required this.comment});
 }

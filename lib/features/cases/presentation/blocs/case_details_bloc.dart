@@ -12,7 +12,7 @@ import 'package:lawconnect_mobile_flutter/features/profiles/data/datasources/pro
 class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
   CaseDetailsBloc(): super(InitialCaseDetailsState()) {
     on<GetCaseDetailsEvent>(_onGetCaseDetails);
-    on<CreateCommentEvent>(_onCreateComment);
+    // on<CreateCommentEvent>(_onCreateComment);
     on<FinishCaseEvent>(_onFinishCase);
   }
 
@@ -58,7 +58,7 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
       emit(ErrorCaseDetailsState(message: e.toString()));
     }
   }
-
+  /*
   Future<void> _onCreateComment(
     CreateCommentEvent event,
     Emitter<CaseDetailsState> emit,
@@ -81,6 +81,7 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
       emit(ErrorCaseDetailsState(message: e.toString()));
     }
   }
+  */
 
   Future<void> _onFinishCase(
     FinishCaseEvent event,
@@ -89,10 +90,19 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
     emit(LoadingCaseDetailsState());
 
     try {
+      await CommentService().createComment(
+        CommentRequestDto(
+          caseId: event.caseId,
+          authorId: event.authorId,
+          type: "FINAL_REVIEW",
+          comment: event.comment,
+          createdAt: DateTime.now().toIso8601String(),
+        ),
+      );
+
       final closed = await CaseService().finishCaseStatus(
         event.caseId,
-        event.status,
-        event.comment,
+        "CLOSED",
       );
 
       emit(FinishCaseState(caseEntity: closed));
