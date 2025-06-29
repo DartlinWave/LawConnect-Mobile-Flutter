@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_page.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/case_card_view.dart';
 
@@ -11,8 +13,8 @@ class CaseListView extends StatelessWidget {
 
   final List<Case> cases;
 
-  void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) {
-    Navigator.push(
+  void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) async {
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(
@@ -21,6 +23,8 @@ class CaseListView extends StatelessWidget {
         ),
       ),
     );
+
+    context.read<CaseBloc>().add(GetCasesEvent(clientId: caseEntity.clientId));
   }
 
   @override
