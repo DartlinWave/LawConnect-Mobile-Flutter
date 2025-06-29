@@ -64,12 +64,12 @@ class CaseService {
     }
   }
 
-  Future<Case> finishCaseStatus(String caseId, String newStatus, String comment) async {
+  Future<Case> finishCaseStatus(String caseId, String newStatus) async {
     final uri = Uri.parse('$baseUrl/cases/$caseId');
     final response = await http.patch(
       uri,
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(CaseRequestDto(status: newStatus, comment: comment, updatedAt: DateTime.now().toIso8601String()).toJson()),
+      body: jsonEncode(CaseRequestDto(status: newStatus, updatedAt: DateTime.now().toIso8601String()).toJson()),
     );
 
     if (response.statusCode == HttpStatus.ok) {
