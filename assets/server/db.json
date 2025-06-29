@@ -1,172 +1,248 @@
 {
-    "roles": [
-        {
-            "id": 1,
-            "name": "ROLE_ADMIN"
-        },
-        {
-            "id": 2,
-            "name": "ROLE_LAWYER"
-        },
-        {
-            "id": 3,
-            "name": "ROLE_CLIENT"
-        }
-    ],
-    "users": [
-        {
-            "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "username": "janedoe12",
-            "password": "jd12",
-            "roleId": 3
-        },
-        {
-            "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
-            "username": "johnny98",
-            "password": "j98",
-            "roleId": 2
-        },
-        {
-            "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
-            "username": "dgon79",
-            "password": "dgon79",
-            "roleId": 2
-        }
-    ],
-
-    "client_profiles": [
-        {
-            "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "userId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "fullName": {
-                "firstname": "Jane",
-                "lastname": "Doe"
-            },
-            "dni": "12345678",
-            "contactInfo": {
-                "phoneNumber": "987654321",
-                "address": "Sugar Street 123"
-            },
-            "image": "https://economia3.com/wp-content/uploads/2019/12/Natalia-Juarranz-EQUIPO-HUMANO-450x450.jpg"
-        }
-    ],
-
-    "lawyer_profiles": [
-        {
-            "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
-            "userId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
-            "fullName": {
-                "firstname": "John",
-                "lastname": "Rivas"
-            },
-            "dni": "87654321",
-            "contactInfo": {
-                "phoneNumber": "987654322",
-                "address": "Maple Avenue 456"
-            },
-            "description": "Abogado especializado en derecho de familia, con amplia experiencia en casos de custodia, divorcios y acuerdos de visitas.",
-            "specialties": [
-                "FAMILY_LAW",
-                "CIVIL_LAW"
-            ],
-            "image": "https://randomuser.me/api/portraits/men/31.jpg",
-            "rating": 5
-        },
-
-        {
-            "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
-            "userId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
-            "fullName": {
-                "firstname": "Daniel",
-                "lastname": "Gonzalez"
-            },
-            "dni": "87654322",
-            "contactInfo": {
-                "phoneNumber": "987654323",
-                "address": "Oak Street 789"
-            },
-            "description": "Abogado especializado en derecho laboral, con vasta experiencia en la defensa de trabajadores y resolución de conflictos laborales.",
-            "specialties": [
-                "LABOR_LAW",
-                "CONTRACT_LAW"
-            ],
-            "image": "https://randomuser.me/api/portraits/men/32.jpg",
-            "rating": 4.4
-        }
-
-    ],
-
-    "cases": [
-        {
-            "id": "2faab94a-67bb-4476-b1e7-8a2688c17fbc",
-            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "title": "Divorce Case",
-            "description": "Divorce case description",
-            "status": "OPEN",
-            "createdAt": "2025-10-01T12:00:00Z",
-            "updatedAt": "2025-10-02T12:00:00Z",
-            "image": "https://www.shutterstock.com/image-photo/law-theme-gavel-mallet-judge-600nw-2478909667.jpg"
-        },
-
-        {
-            "id": "153ba175-fad9-4f41-bf28-d78d7c799476",
-            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "title": "Criminal Defense",
-            "description": "Criminal case description",
-            "status": "EVALUATION",
-            "createdAt": "2025-10-01T12:00:00Z",
-            "updatedAt": "2025-10-02T12:00:00Z",
-            "image": "https://media.istockphoto.com/id/1614868242/photo/criminal-talking-to-detective.jpg?s=612x612&w=0&k=20&c=s-d--Z_HIbwCMSzcTafUrN0nxgi2Dqq0W5ISrZoSdOc="
-        },
-        
-        {
-            "id": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
-            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "title": "Land Dispute",
-            "description": "Land dispute case",
-            "status": "ACCEPTED",
-            "createdAt": "2025-10-01T12:00:00Z",
-            "updatedAt": "2025-10-02T12:00:00Z",
-            "image": "https://media.istockphoto.com/id/1305460236/vector/two-hands-are-tearing-icon-of-house-concept-of-real-estate-division.jpg?s=612x612&w=0&k=20&c=PiGw89p35wlUF3_T0nN8yHPKgF1a0B2a9-oOfP0MfU8="
-        },
-
-        {
-            "id": "7b35f3a7-9200-417b-99cf-cb216ac26837",
-            "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "title": "Labor Case",
-            "description": "Labor rights concern",
-            "status": "CLOSED",
-            "createdAt": "2025-10-03T12:00:00Z",
-            "updatedAt": "2025-10-04T12:00:00Z",
-            "image": "https://www.ilr.cornell.edu/sites/default/files-d8/styles/large_9_5/public/Workers-handboo-800x533.jpg?h=c9f93661&itok=_PmNSZif"
-        }
-    ],
-
-    "invitations": [
-        {
-            "id": 1,
-            "caseId": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
-            "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
-            "status":"ACCEPTED"
-        },
-
-        {
-            "id": 2,
-            "caseId": "7b35f3a7-9200-417b-99cf-cb216ac26837",
-            "lawyerId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
-            "status":"ACCEPTED"
-        }
-    ],
-
-    "comments": [
-        {
-            "commentId": 1,
-            "caseId": "7b35f3a7-9200-417b-99cf-cb216ac26837",
-            "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
-            "type": "FINAL_REVIEW",
-            "comment": "Excelente abogado, resolvió mi caso de manera efectiva.",
-            "createdAt": "2025-10-06T12:00:00Z"
-        }
-    ]
-
+  "roles": [
+    {
+      "id": "1",
+      "name": "ROLE_ADMIN"
+    },
+    {
+      "id": "2",
+      "name": "ROLE_LAWYER"
+    },
+    {
+      "id": "3",
+      "name": "ROLE_CLIENT"
+    }
+  ],
+  "users": [
+    {
+      "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "username": "janedoe12",
+      "password": "jd12",
+      "roleId": 3
+    },
+    {
+      "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "username": "johnny98",
+      "password": "j98",
+      "roleId": 2
+    },
+    {
+      "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "username": "dgon79",
+      "password": "dgon79",
+      "roleId": 2
+    }
+  ],
+  "client_profiles": [
+    {
+      "id": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "userId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "fullName": {
+        "firstname": "Jane",
+        "lastname": "Doe"
+      },
+      "dni": "12345678",
+      "contactInfo": {
+        "phoneNumber": "987654321",
+        "address": "Sugar Street 123"
+      },
+      "image": "https://economia3.com/wp-content/uploads/2019/12/Natalia-Juarranz-EQUIPO-HUMANO-450x450.jpg"
+    }
+  ],
+  "lawyer_profiles": [
+    {
+      "id": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "userId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "fullName": {
+        "firstname": "John",
+        "lastname": "Rivas"
+      },
+      "dni": "87654321",
+      "contactInfo": {
+        "phoneNumber": "987654322",
+        "address": "Maple Avenue 456"
+      },
+      "description": "Abogado especializado en derecho de familia, con amplia experiencia en casos de custodia, divorcios y acuerdos de visitas.",
+      "specialties": [
+        "FAMILY_LAW",
+        "CIVIL_LAW"
+      ],
+      "image": "https://randomuser.me/api/portraits/men/31.jpg",
+      "rating": 5
+    },
+    {
+      "id": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "userId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "fullName": {
+        "firstname": "Daniel",
+        "lastname": "Gonzalez"
+      },
+      "dni": "87654322",
+      "contactInfo": {
+        "phoneNumber": "987654323",
+        "address": "Oak Street 789"
+      },
+      "description": "Abogado especializado en derecho laboral, con vasta experiencia en la defensa de trabajadores y resolución de conflictos laborales.",
+      "specialties": [
+        "LABOR_LAW",
+        "CONTRACT_LAW"
+      ],
+      "image": "https://randomuser.me/api/portraits/men/32.jpg",
+      "rating": 4.4
+    }
+  ],
+  "cases": [
+    {
+      "id": "2faab94a-67bb-4476-b1e7-8a2688c17fbc",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Divorce Case",
+      "description": "Divorce case description",
+      "status": "OPEN",
+      "createdAt": "2025-10-01T12:00:00Z",
+      "updatedAt": "2025-10-02T12:00:00Z",
+      "image": "https://www.shutterstock.com/image-photo/law-theme-gavel-mallet-judge-600nw-2478909667.jpg"
+    },
+    {
+      "id": "153ba175-fad9-4f41-bf28-d78d7c799476",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Criminal Defense",
+      "description": "Criminal case description",
+      "status": "EVALUATION",
+      "createdAt": "2025-10-01T12:00:00Z",
+      "updatedAt": "2025-10-02T12:00:00Z",
+      "image": "https://media.istockphoto.com/id/1614868242/photo/criminal-talking-to-detective.jpg?s=612x612&w=0&k=20&c=s-d--Z_HIbwCMSzcTafUrN0nxgi2Dqq0W5ISrZoSdOc="
+    },
+    {
+      "id": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Land Dispute",
+      "description": "Land dispute case",
+      "status": "ACCEPTED",
+      "createdAt": "2025-10-01T12:00:00Z",
+      "updatedAt": "2025-10-02T12:00:00Z",
+      "image": "https://media.istockphoto.com/id/1305460236/vector/two-hands-are-tearing-icon-of-house-concept-of-real-estate-division.jpg?s=612x612&w=0&k=20&c=PiGw89p35wlUF3_T0nN8yHPKgF1a0B2a9-oOfP0MfU8="
+    },
+    {
+      "id": "7b35f3a7-9200-417b-99cf-cb216ac26837",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Labor Case",
+      "description": "Labor rights concern",
+      "status": "CLOSED",
+      "createdAt": "2025-10-03T12:00:00Z",
+      "updatedAt": "2025-10-04T12:00:00Z",
+      "image": "https://www.ilr.cornell.edu/sites/default/files-d8/styles/large_9_5/public/Workers-handboo-800x533.jpg?h=c9f93661&itok=_PmNSZif"
+    },
+    {
+      "id": "2039604d-9f28-4a4c-a097-d24df0fdabaf",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Inheritance Conflict",
+      "description": "Inheritance case description",
+      "status": "CLOSED",
+      "createdAt": "2025-10-08T12:00:00Z",
+      "updatedAt": "2025-06-28T20:44:24.152",
+      "image": "https://media.istockphoto.com/id/1684056995/vector/asian-young-people-and-elderly-people-fighting.jpg?s=612x612&w=0&k=20&c=ZuS-HlctdkuaZVqjAHfmdejnrYcPoobRMbB4Fud5P0s="
+    },
+    {
+      "id": "13f945cc-b601-4aea-bd47-001294dd1bad",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Property Damage",
+      "description": "Claim for home damages",
+      "status": "CLOSED",
+      "createdAt": "2025-10-09T12:00:00Z",
+      "updatedAt": "2025-06-28T20:49:23.967",
+      "image": "https://cdn.prod.website-files.com/61d8bd8e7dfa2dd9aba11ff0/6566d058a4f6d647139a8275_Property%20Damage%20Insurance.jpg"
+    },
+    {
+      "id": "56ff4421-565c-4d1d-aed2-bcb862a854f5",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Unpaid Wages",
+      "description": "Case about unpaid overtime",
+      "status": "CLOSED",
+      "createdAt": "2025-10-10T12:00:00Z",
+      "updatedAt": "2025-06-28T20:57:21.274",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0neFu3dj-KsaSJy_eDtTkz8MyUT76aZDpXA&s"
+    },
+    {
+      "id": "c95e2b61-87d7-4d2e-8db5-93bda64b9676",
+      "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "title": "Breach of Contract",
+      "description": "Violation of agreement terms",
+      "status": "ACCEPTED",
+      "createdAt": "2025-10-11T12:00:00Z",
+      "updatedAt": "2025-10-12T12:00:00Z",
+      "image": "https://www.hunnicuttlaw.com/wp-content/uploads/2021/04/breach-of-contract.jpg"
+    }
+  ],
+  "invitations": [
+    {
+      "id": "1",
+      "caseId": "4be4eb6d-3cd2-41a7-be62-ccde2d796e03",
+      "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "2",
+      "caseId": "7b35f3a7-9200-417b-99cf-cb216ac26837",
+      "lawyerId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "3",
+      "caseId": "2039604d-9f28-4a4c-a097-d24df0fdabaf",
+      "lawyerId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "4",
+      "caseId": "13f945cc-b601-4aea-bd47-001294dd1bad",
+      "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "5",
+      "caseId": "56ff4421-565c-4d1d-aed2-bcb862a854f5",
+      "lawyerId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "6",
+      "caseId": "c95e2b61-87d7-4d2e-8db5-93bda64b9676",
+      "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "status": "ACCEPTED"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "caseId": "7b35f3a7-9200-417b-99cf-cb216ac26837",
+      "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "type": "FINAL_REVIEW",
+      "comment": "Excelente abogado, resolvió mi caso de manera efectiva.",
+      "createdAt": "2025-10-06T12:00:00Z"
+    },
+    {
+      "id": "2da6",
+      "caseId": "2039604d-9f28-4a4c-a097-d24df0fdabaf",
+      "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "type": "FINAL_REVIEW",
+      "comment": "muy buen abogado, espero que pueda ayudarme en otro caso de ser necesario. es diligente.",
+      "createdAt": "2025-06-28T20:44:16.572"
+    },
+    {
+      "id": "e07d",
+      "caseId": "13f945cc-b601-4aea-bd47-001294dd1bad",
+      "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "type": "FINAL_REVIEW",
+      "comment": "me encantaría continuar trabajando con el doctor rivas, es muy atento a los detalles y no hubiera podido ganar el juicio si no fuera por el",
+      "createdAt": "2025-06-28T20:49:23.932"
+    },
+    {
+      "id": "0e5c",
+      "caseId": "56ff4421-565c-4d1d-aed2-bcb862a854f5",
+      "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "type": "FINAL_REVIEW",
+      "comment": "Muy buen abogado, el doctor gonzalez demostró que hay bastantes abogados en el mercado que son diligentes. lo recomiendo bastante!",
+      "createdAt": "2025-06-28T20:57:21.235"
+    }
+  ]
 }

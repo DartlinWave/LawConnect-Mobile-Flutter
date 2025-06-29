@@ -1,5 +1,5 @@
 class Comment {
-  final int commentId;
+  final String commentId;
   final String caseId;
   final String authorId;
   final CommentType type;

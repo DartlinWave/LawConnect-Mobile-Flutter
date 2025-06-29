@@ -1,7 +1,7 @@
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
 
 class CommentDto {
-  final int commentId;
+  final String commentId;
   final String caseId;
   final String authorId;
   final CommentType type;
@@ -19,7 +19,7 @@ class CommentDto {
 
   factory CommentDto.fromJson(Map<String, dynamic> json) {
     return CommentDto(
-      commentId: json['commentId'] as int,
+      commentId: json['id'] as String,
       caseId: json['caseId'] as String,
       authorId: json['authorId'] as String,
       type: CommentType.values.byName(json['type'] as String),
