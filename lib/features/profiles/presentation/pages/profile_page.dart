@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_event.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/pages/login_page.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/presentation/bloc/profile_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/presentation/bloc/profile_event.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/presentation/bloc/profile_state.dart';
@@ -106,7 +108,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       BasicButton(
                         text: 'Sign Out',
                         onPressed: () {
-                          // Acción al presionar el botón
+                          context.read<AuthBloc>().add(SignOutEvent());
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         },
                         width: 214,
                         height: 61,

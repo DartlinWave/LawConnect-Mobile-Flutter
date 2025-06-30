@@ -167,9 +167,9 @@
       "clientId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
       "title": "Breach of Contract",
       "description": "Violation of agreement terms",
-      "status": "ACCEPTED",
+      "status": "CLOSED",
       "createdAt": "2025-10-11T12:00:00Z",
-      "updatedAt": "2025-10-12T12:00:00Z",
+      "updatedAt": "2025-06-29T23:38:17.556",
       "image": "https://www.hunnicuttlaw.com/wp-content/uploads/2021/04/breach-of-contract.jpg"
     }
   ],
@@ -243,6 +243,14 @@
       "type": "FINAL_REVIEW",
       "comment": "Muy buen abogado, el doctor gonzalez demostró que hay bastantes abogados en el mercado que son diligentes. lo recomiendo bastante!",
       "createdAt": "2025-06-28T20:57:21.235"
+    },
+    {
+      "id": "102a",
+      "caseId": "c95e2b61-87d7-4d2e-8db5-93bda64b9676",
+      "authorId": "8dd6cf88-b1dc-42f1-a130-64f8283e0b57",
+      "type": "FINAL_REVIEW",
+      "comment": "este abogado fue diligente. espero poder tener otro caso con el para poder asegurarme de que salga bien. lo recomiendo bastante",
+      "createdAt": "2025-06-29T23:38:17.516"
     }
   ]
 }
