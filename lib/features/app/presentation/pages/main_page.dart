@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/my_cases_page.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/pages/home_page.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
-import 'package:lawconnect_mobile_flutter/features/profile/presentation/pages/profile_page.dart';
+import 'package:lawconnect_mobile_flutter/features/profiles/presentation/pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
