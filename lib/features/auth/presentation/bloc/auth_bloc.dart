@@ -17,6 +17,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(FailureAuthState(message: e.toString()));
       }
     });
+
+    // manage with signout from the backend
+
+    on<SignOutEvent>((event, emit) async {
+      emit(InitialAuthState());
+    }
+    );
   }
   
 }
