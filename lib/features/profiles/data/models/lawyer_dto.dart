@@ -27,19 +27,27 @@ class LawyerDto {
 
   factory LawyerDto.fromJson(Map<String, dynamic> json) {
     return LawyerDto(
-      id: json['id'],
-      userId: json['userId'],
-      fullName: PersonNameDto.fromJson(json['fullName']),
-      dni: json['dni'],
-      contactInfo: ContactInfoDto.fromJson(json['contactInfo']),
-      description: json['description'],
-      specialties: List<String>.from(json['specialties'] as List),
-      image: json['image'],
-      rating: (json['rating'] as num).toDouble(),
+      id: json['id'] ?? '',
+      userId: json['userId'] ?? '',
+      fullName: json['fullName'] != null
+          ? PersonNameDto.fromJson(json['fullName'])
+          : PersonNameDto(firstname: '', lastname: ''),
+      dni: json['dni'] ?? '',
+      contactInfo: json['contactInfo'] != null
+          ? ContactInfoDto.fromJson(json['contactInfo'])
+          : ContactInfoDto(phoneNumber: '', address: ''),
+      description: json['description'] ?? '',
+      specialties: json['specialties'] != null
+          ? List<String>.from(json['specialties'] as List)
+          : <String>[],
+      image: json['image'] ?? '',
+      rating: (json['rating'] != null
+          ? (json['rating'] as num).toDouble()
+          : 0.0),
     );
   }
 
-  Lawyer toDomain(){
+  Lawyer toDomain() {
     return Lawyer(
       id: id,
       userId: userId,
