@@ -39,7 +39,7 @@ class _CreateCasePageState extends State<CreateCasePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // User header with underline
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

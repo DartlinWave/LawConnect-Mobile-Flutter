@@ -16,7 +16,7 @@ class LawyerProfilePage extends StatefulWidget {
 
 class _LawyerProfilePageState extends State<LawyerProfilePage> {
   Map<String, dynamic>? _lawyer;
-  List<Map<String, dynamic>> _reviews = [];
+  final List<Map<String, dynamic>> _reviews = [];
   bool _isLoading = true;
 
   @override
@@ -54,7 +54,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // User header with underline
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

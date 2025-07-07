@@ -59,7 +59,7 @@ class _CasesPageState extends State<CasesPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // User header with underline
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

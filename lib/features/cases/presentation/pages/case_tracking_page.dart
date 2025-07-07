@@ -15,7 +15,7 @@ class CaseTrackingPage extends StatefulWidget {
 }
 
 class _CaseTrackingPageState extends State<CaseTrackingPage> {
-  List<Map<String, dynamic>> _assignedLawyers = []; // Lista vacía por defecto
+  final List<Map<String, dynamic>> _assignedLawyers = []; // Lista vacía por defecto
   bool _isLoading = true;
 
   @override
@@ -62,7 +62,7 @@ class _CaseTrackingPageState extends State<CaseTrackingPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // User header with underline
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
