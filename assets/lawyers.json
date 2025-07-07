@@ -1,0 +1,46 @@
+[ 
+    {
+      "name": "Dr Rivas",
+      "rating": 4,
+      "specialty": "Penalista",
+      "description": "Dr. Rivas is a highly experienced penal lawyer with over 15 years of practice in criminal law. He has successfully defended numerous high-profile cases.",
+      "image": "https://images.unsplash.com/photo-1662104935762-707db0439ecd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+  
+    {
+      "name": "Dr Jane",
+      "rating": 5,
+      "specialty": "Familiar",
+      "description": "Dr. Jane specializes in family law and has a compassionate approach to resolving disputes. She is known for her mediation skills and client-focused service.",
+      "image": "https://plus.unsplash.com/premium_photo-1661964256419-4b4f1322852d?q=80&w=1291&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Dr John",
+      "rating": 3,
+      "specialty": "Familiar",
+      "description": "Dr. John has a strong background in family law, focusing on child custody and divorce cases. He is dedicated to achieving the best outcomes for his clients.",
+      "image": "https://images.unsplash.com/photo-1736939678218-bd648b5ef3bb?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Dr Smith",
+      "rating": 4,
+      "specialty": "Civil",
+      "description": "Dr. Smith is a civil lawyer with expertise in contract disputes and property law. He has a proven track record of successful litigation and client satisfaction.",
+      "image": "https://images.unsplash.com/photo-1662104935762-707db0439ecd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Dr Alice",
+      "rating": 3,
+      "specialty": "Civil",
+      "description": "Dr. Alice specializes in civil litigation, particularly in personal injury cases. She is known for her thorough preparation and strong advocacy skills.",
+      "image": "https://images.unsplash.com/photo-1662104935762-707db0439ecd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Dr Bob",
+      "rating": 2,
+      "specialty": "Civil",
+      "description": "Dr. Bob has a background in civil law with a focus on real estate disputes. He is committed to providing practical solutions for his clients.",
+      "image": "https://images.unsplash.com/photo-1662104935762-707db0439ecd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+
+  ]

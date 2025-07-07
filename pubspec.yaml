@@ -1,6 +1,6 @@
 name: lawconnect_mobile_flutter
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -9,17 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # Paquetes comunes
   flutter_bloc: ^9.1.1
   http: ^1.4.0
   path: ^1.9.1
   shared_preferences: ^2.5.3
   sqflite: ^2.4.2
 
+  # Internacionalización (lo muevo aquí porque suele usarse en runtime)
+  intl: any
+
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  intl: any
 
 flutter:
   uses-material-design: true
@@ -28,6 +32,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/server/
+    - assets/lawyers.json
 
   fonts:
     - family: PlusJakartaSans

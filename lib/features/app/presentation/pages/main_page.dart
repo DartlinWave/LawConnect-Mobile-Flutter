@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/my_cases_page.dart';
+
+// Páginas principales
 import 'package:lawconnect_mobile_flutter/features/home/presentation/pages/home_page.dart';
-import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/features/lawyers/presentation/pages/lawyers_page.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/my_cases_page.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/presentation/pages/profile_page.dart';
+
+// Tema
+import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -14,11 +19,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
+  // Orden de pestañas: Home · Lawyers · Cases · Profile
   final List<Widget> _pages = [
-    HomePage(),
-    Text("Lawyers"),
-    MyCasesPage(),
-    ProfilePage(),
+    const HomePage(),
+    const LawyersPage(),
+    const MyCasesPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -26,39 +32,32 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: SafeArea(child: _pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
         currentIndex: _selectedIndex,
+        onTap: (index) => setState(() => _selectedIndex = index),
         backgroundColor: ColorPalette.primaryColor,
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: ColorPalette.whiteColor,
         selectedItemColor: ColorPalette.secondaryColor,
+        unselectedItemColor: ColorPalette.whiteColor,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.home), 
-            icon: Icon(Icons.home_outlined), 
-            label: "Home"
-            ),
-
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.gavel), 
-            icon: Icon(Icons.gavel_outlined), 
-            label: "Lawyers"
+            activeIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
           ),
-
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.assignment), 
-            icon: Icon(Icons.assignment_outlined), 
-            label: "Cases"
+            activeIcon: Icon(Icons.gavel),
+            icon: Icon(Icons.gavel_outlined),
+            label: 'Lawyers',
           ),
-
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.person), 
-            icon: Icon(Icons.person_outline), 
-            label: "Profile"
+            activeIcon: Icon(Icons.assignment),
+            icon: Icon(Icons.assignment_outlined),
+            label: 'Cases',
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
           ),
         ],
       ),
