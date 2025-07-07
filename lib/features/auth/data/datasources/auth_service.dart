@@ -8,33 +8,25 @@ import 'package:lawconnect_mobile_flutter/features/auth/domain/entities/user.dar
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  final String baseUrl = 'http://localhost:8080/api/v1';
 
-  final String baseUrl = 'http://localhost:3000';
-  // final String baseUrl = 'http://10.0.2.2:3000';
-
-  // this will change to POST later
   Future<User> login(String username, String password) async {
-    final Uri uri = Uri.parse('$baseUrl/users').replace(
-      queryParameters: {
-        //until we have the login endpoint (TODO: connect with backend)
-        'username': username,
-        'password': password,
-      },
+    final Uri uri = Uri.parse('$baseUrl/authentication/sign-in');
+
+    final response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'username': username, 'password': password}),
     );
 
-    final response = await http.get(uri);
-
-    if (response.statusCode == HttpStatus.ok) {
-      List users = jsonDecode(response.body) as List;
-
-      if (users.isEmpty) {
-        throw Exception('User not found');
-      }
-
-      final userDto = UserDto.fromJson(users.first as Map<String, dynamic>);
+    if (response.statusCode == HttpStatus.ok || response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final userDto = UserDto.fromJson(data);
       return userDto.toDomain();
     } else {
-      throw Exception('Failed to login: ${response.statusCode}');
+      throw Exception(
+        'Failed to login: ${response.statusCode} ${response.body}',
+      );
     }
   }
 
@@ -48,6 +40,28 @@ class AuthService {
       return userDto.toDomain();
     } else {
       throw Exception('Failed to fetch user: ${response.statusCode}');
+    }
+  }
+
+  Future<Map<String, dynamic>> signUp(String username, String password) async {
+    final Uri uri = Uri.parse('$baseUrl/authentication/sign-up');
+
+    final response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'username': username,
+        'password': password,
+        'role': 'ROLE_CLIENT',
+      }),
+    );
+
+    if (response.statusCode == HttpStatus.ok || response.statusCode == 201) {
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception(
+        'Failed to sign up: ${response.statusCode} ${response.body}',
+      );
     }
   }
 }

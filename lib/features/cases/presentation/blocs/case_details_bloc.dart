@@ -4,13 +4,15 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/case_s
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/comment_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/invitation_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/models/comment_request_dto.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_state.dart';
 import 'package:lawconnect_mobile_flutter/features/profiles/data/datasources/profile_service.dart';
+import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
 
 class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
-  CaseDetailsBloc(): super(InitialCaseDetailsState()) {
+  CaseDetailsBloc() : super(InitialCaseDetailsState()) {
     on<GetCaseDetailsEvent>(_onGetCaseDetails);
     // on<CreateCommentEvent>(_onCreateComment);
     on<FinishCaseEvent>(_onFinishCase);
@@ -22,10 +24,80 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
   ) async {
     emit(LoadingCaseDetailsState());
     try {
-      final caseEntity = await CaseService().fetchCaseById(event.caseId);
+      final caseEntity = await CaseService().fetchCaseById(
+        event.caseId,
+        event.token,
+      );
+
+      // Si el caso está OPEN, no buscar invitaciones ni abogado
+      if (caseEntity.status == CaseStatus.OPEN) {
+        final clientProfile = await ProfileService().fetchClientByUserId(
+          caseEntity.clientId,
+          event.token,
+        );
+        final user = await AuthService().fetchUserById(clientProfile.userId);
+        emit(
+          LoadedCaseDetailsState(
+            caseEntity: caseEntity,
+            lawyer: null,
+            client: clientProfile,
+            user: user,
+            comment: null,
+          ),
+        );
+        return;
+      }
+
+      // Si el caso está en EVALUATION, obtener postulaciones
+      if (caseEntity.status == CaseStatus.EVALUATION) {
+        print('DEBUG: Entrando a EVALUATION para caseId: ' + caseEntity.id);
+        final applications = await ApplicationService()
+            .fetchApplicationsByCaseId(caseEntity.id, event.token);
+        print('DEBUG: Applications fetched: ' + applications.toString());
+        // Obtener perfiles de abogados postulantes
+        final postulantLawyers = <Lawyer>[];
+        for (final app in applications) {
+          print(
+            'DEBUG: Intentando obtener abogado para lawyerId: ' + app.lawyerId,
+          );
+          try {
+            final lawyer = await ProfileService().fetchLawyerById(
+              app.lawyerId,
+              event.token,
+            );
+            print(
+              'DEBUG: Lawyer fetched for application: ' + lawyer.toString(),
+            );
+            postulantLawyers.add(lawyer);
+          } catch (e) {
+            print('DEBUG: Error fetching lawyer for application: $e');
+          }
+        }
+        print(
+          'DEBUG: Postulant lawyers final list: ' + postulantLawyers.toString(),
+        );
+        final clientProfile = await ProfileService().fetchClientByUserId(
+          caseEntity.clientId,
+          event.token,
+        );
+        final user = await AuthService().fetchUserById(clientProfile.userId);
+        emit(
+          LoadedCaseDetailsState(
+            caseEntity: caseEntity,
+            lawyer: null, // No hay abogado asignado aún
+            client: clientProfile,
+            user: user,
+            comment: null,
+            postulantLawyers: postulantLawyers,
+            applications: applications, // Incluir las aplicaciones en el estado
+          ),
+        );
+        return;
+      }
 
       final invitations = await InvitationService().fetchInvitationsByCaseId(
         event.caseId,
+        event.token,
       );
 
       final acceptedInvitation = invitations.firstWhere(
@@ -35,13 +107,15 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
 
       final lawyer = await ProfileService().fetchLawyerById(
         acceptedInvitation.lawyerId,
+        event.token,
       );
 
       final finalComment = await CommentService()
-          .fetchFinalReviewCommentByCaseId(event.caseId);
+          .fetchFinalReviewCommentByCaseId(event.caseId, event.token);
 
-      final clientProfile = await ProfileService().fetchClientById(
+      final clientProfile = await ProfileService().fetchClientByUserId(
         caseEntity.clientId,
+        event.token,
       );
 
       final user = await AuthService().fetchUserById(clientProfile.userId);
@@ -110,5 +184,4 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
       emit(ErrorCaseDetailsState(message: e.toString()));
     }
   }
-  
 }

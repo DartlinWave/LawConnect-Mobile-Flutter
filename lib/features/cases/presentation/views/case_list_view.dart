@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
@@ -14,17 +16,26 @@ class CaseListView extends StatelessWidget {
   final List<Case> cases;
 
   void _navigateToCaseFollowUp(BuildContext context, Case caseEntity) async {
+    final authState = context.read<AuthBloc>().state;
+    String token = "";
+    if (authState is SuccessAuthState) {
+      token = authState.user.token;
+    }
     await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (ctx) => CaseDetailsBloc()..add(GetCaseDetailsEvent(caseId: caseEntity.id)),
-          child: FollowUpPage(chosenCase: caseEntity),
+          create: (ctx) =>
+              CaseDetailsBloc()
+                ..add(GetCaseDetailsEvent(caseId: caseEntity.id, token: token)),
+          child: FollowUpPage(chosenCase: caseEntity, token: token),
         ),
       ),
     );
 
-    context.read<CaseBloc>().add(GetCasesEvent(clientId: caseEntity.clientId));
+    context.read<CaseBloc>().add(
+      GetCasesEvent(clientId: caseEntity.clientId, token: token),
+    );
   }
 
   @override

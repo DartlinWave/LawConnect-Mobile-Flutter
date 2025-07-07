@@ -15,15 +15,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
- @override
+  @override
   void initState() {
     context.read<LawyerBloc>().add(GetAllLawyersEvent());
     super.initState();
   }
 
   List<dynamic> comments = []; //otra llmada a la bd
-  
+
   //POR HACER: move a repositorio.
   // Future<void> loadLawyers() async {
   //   final String response = await rootBundle.loadString('assets/doctors.json');
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   // }
 
   //obtener data desde el servidor:
-  // Future<List<Lawyer>> fetchLawyers() async {  
+  // Future<List<Lawyer>> fetchLawyers() async {
   //   final response = await http.get(Uri.parse('https://api.example.com/lawyers'));
   //   if (response.statusCode == 200) {
   //     final List<dynamic> data = json.decode(response.body);
@@ -43,44 +42,46 @@ class _HomePageState extends State<HomePage> {
   //     throw Exception('Failed to load lawyers');
   //   }
   // }
-  
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(    
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Welcome Client!"),
-        ),
-        // linea separadora
-        Divider(
-          color: ColorPalette.primaryColor,
-          thickness: 1
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Suggested Laywers", style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: ColorPalette.primaryColor,
-            
-          )),
-        ),
-        BlocBuilder<LawyerBloc, LawyerState>(
-        builder: (context, state) {
-          if (state is LoadedLawyerState) {
-            return Carrusel(listLawyers: state.lawyers, child: Text("Suggested Laywers"));            
-          }
-          return Center();
-        },
-        ),
-        //Carrusel(child: Text("Suggestes Laywers"), listLawyers: listLawyers),
-      ],
-    ),
-  );            
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Welcome Client!"),
+          ),
+          // linea separadora
+          Divider(color: ColorPalette.primaryColor, thickness: 1),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Suggested Laywers",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: ColorPalette.primaryColor,
+              ),
+            ),
+          ),
+          BlocBuilder<LawyerBloc, LawyerState>(
+            builder: (context, state) {
+              if (state is LoadedLawyerState) {
+                return Carrusel(
+                  listLawyers: state.lawyers,
+                  child: Text("Suggested Laywers"),
+                );
+              }
+              return Center();
+            },
+          ),
+          //Carrusel(child: Text("Suggestes Laywers"), listLawyers: listLawyers),
+        ],
+      ),
+    );
   }
 }
 
@@ -96,28 +97,29 @@ class Carrusel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return SizedBox(
-      width: MediaQuery.of(context).size.width,      
-       child: Container(   
-          
-          margin: const EdgeInsets.symmetric(vertical: 20),
-          height: 200,
-          child: ListView.builder(      
-            scrollDirection: Axis.horizontal,      
-            itemCount: listLawyers.length,
-            itemBuilder: (context, index) {
-              final lawyer = listLawyers[index];
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        height: 200,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: listLawyers.length,
+          itemBuilder: (context, index) {
+            final lawyer = listLawyers[index];
 
-              // una búsqueda de todo slo comentarios de abogado usando la var comments
-              return CardDoctorView(
-                name: lawyer.name ?? 'Unknown',
-                specialty: lawyer.specialty ?? 'Unknown',
-                rating: lawyer.rating.toString(),
-                imageUrl: lawyer.image ?? 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-              );
-            },            
-             ),
-       ),
-     );
+            // una búsqueda de todo slo comentarios de abogado usando la var comments
+            return CardDoctorView(
+              name: lawyer.name ?? 'Unknown',
+              specialty: lawyer.specialty ?? 'Unknown',
+              rating: lawyer.rating.toString() ?? 'N/A',
+              imageUrl:
+                  lawyer.image ??
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+            );
+          },
+        ),
+      ),
+    );
   }
 }

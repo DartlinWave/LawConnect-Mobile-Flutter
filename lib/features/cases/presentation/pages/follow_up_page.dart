@@ -14,9 +14,14 @@ import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/time
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class FollowUpPage extends StatefulWidget {
-  const FollowUpPage({super.key, required this.chosenCase});
+  const FollowUpPage({
+    super.key,
+    required this.chosenCase,
+    required this.token,
+  });
 
   final Case chosenCase;
+  final String token;
 
   @override
   State<FollowUpPage> createState() => _FollowUpPageState();
@@ -51,7 +56,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
   void initState() {
     super.initState();
     context.read<CaseDetailsBloc>().add(
-      GetCaseDetailsEvent(caseId: widget.chosenCase.id),
+      GetCaseDetailsEvent(caseId: widget.chosenCase.id, token: widget.token),
     );
   }
 
@@ -105,6 +110,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
 
                         SelectedLawyerView(
                           lawyer: state.lawyer,
+                          postulantLawyers: state.postulantLawyers,
                           onFullProfile: _navigateToFullLawyerProfile,
                           onContact: _navigateToContactLawyer,
                         ),
@@ -123,14 +129,23 @@ class _FollowUpPageState extends State<FollowUpPage> {
                 if (state is ErrorCaseDetailsState) {
                   return Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Error: ${state.message}",
-                          style: TextStyle(color: ColorPalette.secondaryColor),
+                          "Ocurrió un error:\n${state.message}",
+                          style: TextStyle(
+                            color: ColorPalette.secondaryColor,
+                            fontSize: 16,
                         ),
-
-                        SizedBox(height: 16),
-
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 24),
+                        Icon(
+                          Icons.error_outline,
+                          color: ColorPalette.secondaryColor,
+                          size: 48,
+                        ),
+                        SizedBox(height: 24),
                         BackButton(
                           color: ColorPalette.blackColor,
                           onPressed: () => Navigator.pop(context),

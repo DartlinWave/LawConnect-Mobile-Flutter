@@ -3,7 +3,8 @@ abstract class ProfileEvent {
 }
 
 class GetClientProfileEvent extends ProfileEvent {
-  final String clientId;
+  final String userId;
+  final String token;
 
-  const GetClientProfileEvent({required this.clientId});
+  const GetClientProfileEvent({required this.userId, required this.token});
 }

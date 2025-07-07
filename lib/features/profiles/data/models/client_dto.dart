@@ -21,12 +21,12 @@ class ClientDto {
 
   factory ClientDto.fromJson(Map<String, dynamic> json) {
     return ClientDto(
-      id: json['id'],
-      userId: json['userId'],
-      fullName: PersonNameDto.fromJson(json['fullName']),
-      dni: json['dni'],
-      contactInfo: ContactInfoDto.fromJson(json['contactInfo']),
-      image: json['image'],
+      id: json['id'] ?? '',
+      userId: json['userId'] ?? '',
+      fullName: PersonNameDto.fromJson(json['fullName'] ?? {}),
+      dni: json['dni'] ?? '',
+      contactInfo: ContactInfoDto.fromJson(json['contactInfo'] ?? {}),
+      image: json['image'] ?? '',
     );
   }
 

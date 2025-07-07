@@ -9,11 +9,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetClientProfileEvent>(_onGetClientProfile);
   }
 
-  Future<void> _onGetClientProfile(GetClientProfileEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onGetClientProfile(
+    GetClientProfileEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
     emit(LoadingProfileState());
 
     try {
-      final client = await ProfileService().fetchClientById(event.clientId);
+      final client = await ProfileService().fetchClientProfileByUserId(
+        event.userId,
+        event.token,
+      );
       final user = await AuthService().fetchUserById(client.userId);
       emit(LoadedClientProfileState(client: client, user: user));
     } catch (e) {

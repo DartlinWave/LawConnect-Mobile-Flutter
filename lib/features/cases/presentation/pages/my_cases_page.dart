@@ -26,19 +26,20 @@ class _MyCasesPageState extends State<MyCasesPage> {
     super.initState();
 
     final authState = context.read<AuthBloc>().state;
-    
     if (authState is SuccessAuthState) {
       clientId = authState.user.id;
-      context.read<CaseBloc>().add(GetCasesEvent(clientId: clientId));
-    } 
+      final token = authState.user.token;
+      context.read<CaseBloc>().add(
+        GetCasesEvent(clientId: clientId, token: token),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthBloc>().state;
 
-
-// to get the username of the client considering the information from the sign in
+    // to get the username of the client considering the information from the sign in
     final clientUsername = authState is SuccessAuthState
         ? authState.user.username
         : "Unknown User";
@@ -86,11 +87,7 @@ class _MyCasesPageState extends State<MyCasesPage> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(
-                            value == "All"
-                                ? "All"
-                                : value
-                          ),
+                          child: Text(value == "All" ? "All" : value),
                         );
                       }).toList(),
                 ),
@@ -107,7 +104,9 @@ class _MyCasesPageState extends State<MyCasesPage> {
                       List<Case> cases = state.cases;
 
                       if (selectedFilter != "All") {
-                        cases = cases.where((c) => c.status.name == selectedFilter).toList();
+                        cases = cases
+                            .where((c) => c.status.name == selectedFilter)
+                            .toList();
                       }
 
                       return CaseListView(cases: cases);
@@ -121,8 +120,62 @@ class _MyCasesPageState extends State<MyCasesPage> {
               ),
 
               FloatingActionButton(
-                onPressed: () {
-                  // Todo: button functionality for new case
+                onPressed: () async {
+                  final authState = context.read<AuthBloc>().state;
+                  if (authState is SuccessAuthState) {
+                    final clientId = authState.user.id;
+                    final token = authState.user.token;
+                    String? title;
+                    String? description;
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Create New Case'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextField(
+                                decoration: InputDecoration(labelText: 'Title'),
+                                onChanged: (value) => title = value,
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Description',
+                                ),
+                                onChanged: (value) => description = value,
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text('Cancel'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (title != null &&
+                                    description != null &&
+                                    title!.isNotEmpty &&
+                                    description!.isNotEmpty) {
+                                  context.read<CaseBloc>().add(
+                                    CreateCaseEvent(
+                                      clientId: clientId,
+                                      title: title!,
+                                      description: description!,
+                                      token: token,
+                                    ),
+                                  );
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: Text('Create'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
                 backgroundColor: ColorPalette.lighterButtonColor,
                 child: Icon(Icons.note_add, color: ColorPalette.blackColor),

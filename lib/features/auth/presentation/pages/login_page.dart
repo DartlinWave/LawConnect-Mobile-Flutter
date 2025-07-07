@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
-import 'package:lawconnect_mobile_flutter/features/app/presentation/pages/main_page.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_event.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/pages/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,16 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) => {
-        if (state is SuccessAuthState)
-          {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MainPage(),
-              ),
-            ),
-          }
-        else if (state is FailureAuthState)
+        if (state is FailureAuthState)
           {
             ScaffoldMessenger.of(
               context,
@@ -56,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Image.asset(
                           "assets/images/logo-lawconnect.png",
                           fit: BoxFit.cover,
@@ -122,7 +111,10 @@ class _LoginPageState extends State<LoginPage> {
 
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/path-to-forgot-password');
+                            Navigator.pushNamed(
+                              context,
+                              '/path-to-forgot-password',
+                            );
                           },
                           child: Text(
                             "Forgot Password?",
@@ -158,7 +150,12 @@ class _LoginPageState extends State<LoginPage> {
                           child: BasicButton(
                             text: "Sign Up",
                             onPressed: () {
-                              // Sign up logic
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUpPage(),
+                                ),
+                              );
                             },
                             width: 275,
                             height: 40,

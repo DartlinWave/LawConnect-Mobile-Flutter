@@ -34,7 +34,6 @@ class CaseCardView extends StatelessWidget {
     };
 
     return Card(
-      
       color: ColorPalette.whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -79,7 +78,7 @@ class CaseCardView extends StatelessWidget {
             ),
             if (caseEntity.status == CaseStatus.EVALUATION)
               Text(
-                "Applications received: 0",
+                "Applications received: ${caseEntity.applicationsCount ?? 1}",
                 style: TextStyle(color: ColorPalette.blackColor),
               ),
 

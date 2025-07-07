@@ -4,8 +4,9 @@ abstract class CaseDetailsEvent {
 
 class GetCaseDetailsEvent extends CaseDetailsEvent {
   final String caseId;
+  final String token;
 
-  const GetCaseDetailsEvent({required this.caseId});
+  const GetCaseDetailsEvent({required this.caseId, required this.token});
 }
 
 class CreateCommentEvent extends CaseDetailsEvent {

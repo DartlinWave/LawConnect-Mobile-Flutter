@@ -30,8 +30,11 @@ class _ProfilePageState extends State<ProfilePage> {
     final authState = context.read<AuthBloc>().state;
 
     if (authState is SuccessAuthState) {
-      userId = authState.user.id;
-      context.read<ProfileBloc>().add(GetClientProfileEvent(clientId: userId));
+      final token = authState.user.token;
+      final userId = authState.user.id;
+      context.read<ProfileBloc>().add(
+        GetClientProfileEvent(userId: userId, token: token),
+      );
     }
   }
 
@@ -121,7 +124,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
 
                       SizedBox(height: 12),
-
                     ],
                   ),
                 ),

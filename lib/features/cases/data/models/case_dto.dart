@@ -9,6 +9,7 @@ class CaseDto {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String image;
+  final int? applicationsCount;
 
   const CaseDto({
     required this.id,
@@ -19,18 +20,26 @@ class CaseDto {
     required this.image,
     required this.createdAt,
     required this.updatedAt,
+    this.applicationsCount,
   });
 
   factory CaseDto.fromJson(Map<String, dynamic> json) {
     return CaseDto(
-      id: json['id'] as String,
-      clientId: json['clientId'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-      status: CaseStatus.values.byName(json['status'] as String),
-      image: json['image'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      id: json['id'] ?? '',
+      clientId: json['clientId'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      status: json['status'] != null
+          ? CaseStatus.values.byName(json['status'])
+          : CaseStatus.OPEN,
+      image: json['image'] ?? '',
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : DateTime.now(),
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'])
+          : DateTime.now(),
+      applicationsCount: json['applicationsCount'] as int?,
     );
   }
 
@@ -44,6 +53,7 @@ class CaseDto {
       image: image,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      applicationsCount: applicationsCount,
     );
   }
 }

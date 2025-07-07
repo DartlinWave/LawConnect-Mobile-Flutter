@@ -7,6 +7,7 @@ class Case {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String image;
+  final int? applicationsCount; // Campo opcional para el conteo de aplicaciones
 
   Case({
     required this.id,
@@ -17,14 +18,8 @@ class Case {
     required this.image,
     required this.createdAt,
     required this.updatedAt,
+    this.applicationsCount,
   });
-
 }
 
-enum CaseStatus {
-  OPEN,
-  EVALUATION,
-  ACCEPTED,
-  CLOSED,
-  CANCELED
-}
+enum CaseStatus { OPEN, EVALUATION, ACCEPTED, CLOSED, CANCELED }

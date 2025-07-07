@@ -8,9 +8,7 @@ import 'package:lawconnect_mobile_flutter/features/profiles/presentation/bloc/pr
 import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawyer_bloc.dart';
 
 // Pages
-import 'package:lawconnect_mobile_flutter/features/app/presentation/pages/login_page.dart';
-// Si quieres usar el login de auth, cambia la línea de arriba por:
-// import 'package:lawconnect_mobile_flutter/features/auth/presentation/pages/login_page.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/pages/auth_wrapper.dart';
 
 void main() {
   runApp(const MainApp());
@@ -32,7 +30,7 @@ class MainApp extends StatelessWidget {
         title: 'LawConnect Mobile',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'PlusJakartaSans'),
-        home: const LoginPage(),
+        home: const AuthWrapper(),
       ),
     );
   }
