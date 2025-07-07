@@ -13,7 +13,7 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState>
     on<GetAllLawyersEvent>((event, emit) async {
       try {
         final lawyers = await _lawyerRepository.fetchAll();
-        debugPrint('LawyerBloc: Fetched ${lawyers} lawyers');
+        debugPrint('LawyerBloc: Fetched $lawyers lawyers');
         emit(LoadedLawyerState(lawyers));
       } catch (e) {
         // Handle error appropriately, e.g., emit an error state

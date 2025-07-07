@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
@@ -8,7 +6,6 @@ import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawye
 import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawyer_event.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawyer_state.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/widgets/card_doctor_view.dart';
-import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         BlocBuilder<LawyerBloc, LawyerState>(
         builder: (context, state) {
           if (state is LoadedLawyerState) {
-            return Carrusel(child: Text("Suggested Laywers"), listLawyers: state.lawyers);            
+            return Carrusel(listLawyers: state.lawyers, child: Text("Suggested Laywers"));            
           }
           return Center();
         },

@@ -173,7 +173,7 @@ class LawyerDetailInfo extends StatelessWidget {
   final Lawyer lawyer;
   final List<Map<String, String>> customers;
   final VoidCallback onBack;
-  const LawyerDetailInfo({required this.lawyer, required this.customers, required this.onBack});
+  const LawyerDetailInfo({super.key, required this.lawyer, required this.customers, required this.onBack});
 
   @override
   Widget build(BuildContext context) {
