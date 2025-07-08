@@ -28,57 +28,62 @@ class SummaryView extends StatelessWidget {
       CaseStatus.CLOSED: ColorPalette.closedColor,
     };
 
-        return Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Summary",
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              color: ColorPalette.blackColor,
+            ),
+          ),
+          SizedBox(height: 4),
+
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Summary",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: ColorPalette.blackColor,
+              Text.rich(
+                TextSpan(
+                  text: "${caseEntity.title} – State: ",
+                  style: TextStyle(color: ColorPalette.blackColor),
+                  children: [
+                    TextSpan(
+                      text: statusLabel[caseEntity.status] ?? "Unknown",
+                      style: TextStyle(
+                        color:
+                            statusColor[caseEntity.status] ??
+                            ColorPalette.blackColor,
+                      ),
+                    ),
+                  ],
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: 8),
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: onShowFullCase,
+                  style: TextButton.styleFrom(
+                    backgroundColor: ColorPalette.lighterButtonColor,
+                    foregroundColor: ColorPalette.blackColor,
+                  ),
+                  child: Text("Show Full Case"),
                 ),
               ),
-              SizedBox(height: 4),
-        
-              
-              Row(
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      text: "${caseEntity.title} – State: ",
-                      style: TextStyle(color: ColorPalette.blackColor),
-                      children: [
-                        TextSpan(
-                          text: statusLabel[caseEntity.status] ?? "Unknown",
-                          style: TextStyle(
-                            color:
-                                statusColor[caseEntity.status] ??
-                                ColorPalette.blackColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Spacer(),
-        
-                  TextButton(
-                    onPressed: onShowFullCase,
-                    style: TextButton.styleFrom(
-                      backgroundColor: ColorPalette.lighterButtonColor,
-                      foregroundColor: ColorPalette.blackColor,
-                    ),
-                    child: Text("Show Full Case"),
-                  ),
-                ],
-              ),
-              
-              SizedBox(height: 18),
-              Divider(color: ColorPalette.blackColor, height: 1),
             ],
           ),
-        );
-      }
+
+          SizedBox(height: 18),
+          Divider(color: ColorPalette.blackColor, height: 1),
+        ],
+      ),
+    );
+  }
 }

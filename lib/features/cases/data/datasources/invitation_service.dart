@@ -6,7 +6,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/models/invitation_
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/invitation.dart';
 
 class InvitationService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
   // final String baseUrl = 'http://10.0.2.2:3000';
 
   Future<Invitation> fetchInvitationById(String id) async {

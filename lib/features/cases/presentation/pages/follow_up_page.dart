@@ -5,12 +5,13 @@ import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_b
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/actions_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/selected_lawyer_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/summary_view.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/views/timeline_view.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/case_detail_page.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/assigned_lawyer_profile_page.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_app_bar.dart';
 
 class FollowUpPage extends StatefulWidget {
@@ -29,34 +30,53 @@ class FollowUpPage extends StatefulWidget {
 
 class _FollowUpPageState extends State<FollowUpPage> {
   void _navigateToFullCase() {
-    Navigator.pushNamed(
+    // Navigate to the new case detail page
+    final authState = context.read<AuthBloc>().state;
+    final customerName = authState is SuccessAuthState
+        ? authState.user.username
+        : "Unknown User";
+
+    Navigator.push(
       context,
-      '/path-to-insert',
-      arguments: widget.chosenCase,
+      MaterialPageRoute(
+        builder: (context) => CaseDetailPage(
+          caseEntity: widget.chosenCase,
+          customerName: customerName,
+        ),
+      ),
     );
   }
 
   void _navigateToFullLawyerProfile() {
-    Navigator.pushNamed(
-      context,
-      '/path-to-insert',
-      arguments: widget.chosenCase,
-    );
+    final state = context.read<CaseDetailsBloc>().state;
+    if (state is LoadedCaseDetailsState && state.lawyer != null) {
+      // Navigate to dedicated assigned lawyer profile page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AssignedLawyerProfilePage(
+            lawyer: state.lawyer!,
+            customerName: state.user.username,
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No lawyer information available'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _navigateToContactLawyer() {
-    Navigator.pushNamed(
-      context,
-      '/path-to-insert',
-      arguments: widget.chosenCase,
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<CaseDetailsBloc>().add(
-      GetCaseDetailsEvent(caseId: widget.chosenCase.id, token: widget.token),
+    // For now, show a message that this feature is not implemented
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Contact lawyer feature coming soon'),
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 
@@ -111,6 +131,10 @@ class _FollowUpPageState extends State<FollowUpPage> {
                         SelectedLawyerView(
                           lawyer: state.lawyer,
                           postulantLawyers: state.postulantLawyers,
+                          applications: state.applications,
+                          customerName: clientUsername,
+                          token: widget.token,
+                          caseEntity: widget.chosenCase,
                           onFullProfile: _navigateToFullLawyerProfile,
                           onContact: _navigateToContactLawyer,
                         ),
@@ -136,7 +160,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                           style: TextStyle(
                             color: ColorPalette.secondaryColor,
                             fontSize: 16,
-                        ),
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 24),

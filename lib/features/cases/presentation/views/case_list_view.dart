@@ -45,6 +45,10 @@ class CaseListView extends StatelessWidget {
       itemCount: cases.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        childAspectRatio:
+            0.85, // Un poco más altas que el default pero no tanto
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
       ),
       itemBuilder: (context, index) {
         final caseItem = cases[index];

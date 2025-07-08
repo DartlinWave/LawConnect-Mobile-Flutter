@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
 
 class CreateCasePage extends StatefulWidget {
   const CreateCasePage({super.key});
@@ -12,13 +18,13 @@ class CreateCasePage extends StatefulWidget {
 class _CreateCasePageState extends State<CreateCasePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  
+
   String _selectedSpecialty = 'None';
   final List<String> _specialtyOptions = [
     'None',
-    'Specialty', 
+    'Specialty',
     'Qualifications',
-    'Experience'
+    'Experience',
   ];
 
   @override
@@ -61,9 +67,9 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Create Case title
               Center(
                 child: Text(
@@ -75,9 +81,9 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Title field
               Text(
                 'Title',
@@ -103,9 +109,9 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Description field
               Text(
                 'Description',
@@ -135,13 +141,16 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Specialty dropdown
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: ColorPalette.lighterButtonColor,
                   borderRadius: BorderRadius.circular(8),
@@ -162,7 +171,9 @@ class _CreateCasePageState extends State<CreateCasePage> {
                         _selectedSpecialty = newValue!;
                       });
                     },
-                    items: _specialtyOptions.map<DropdownMenuItem<String>>((String value) {
+                    items: _specialtyOptions.map<DropdownMenuItem<String>>((
+                      String value,
+                    ) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -171,9 +182,9 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ),
                 ),
               ),
-              
+
               const Spacer(),
-              
+
               // Action buttons
               Row(
                 children: [
@@ -208,7 +219,7 @@ class _CreateCasePageState extends State<CreateCasePage> {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 16),
             ],
           ),
@@ -216,26 +227,62 @@ class _CreateCasePageState extends State<CreateCasePage> {
       ),
     );
   }
-  
+
   void _handleCreateCase() {
-    // TODO: Implement case creation logic
-    print('Title: ${_titleController.text}');
-    print('Description: ${_descriptionController.text}');
-    print('Specialty: $_selectedSpecialty');
-    
-    // TODO: Add form validation
+    // Add form validation
     if (_titleController.text.isEmpty) {
-      // TODO: Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter a title'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
-    
+
     if (_descriptionController.text.isEmpty) {
-      // TODO: Show error message  
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter a description'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
-    
-    // TODO: Create case object and send to backend
-    // TODO: Handle success/error responses
-    // TODO: Navigate to appropriate screen after creation
+
+    // Get client information from auth state
+    final authState = context.read<AuthBloc>().state;
+    if (authState is SuccessAuthState) {
+      final clientId = authState.user.id;
+      final token = authState.user.token;
+
+      // Create case using CaseBloc
+      context.read<CaseBloc>().add(
+        CreateCaseEvent(
+          clientId: clientId,
+          title: _titleController.text,
+          description: _descriptionController.text,
+          token: token,
+        ),
+      );
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Case created successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Navigate back to cases page
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: User not authenticated'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

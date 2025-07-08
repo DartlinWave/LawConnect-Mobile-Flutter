@@ -9,7 +9,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/commen
 import 'package:http/http.dart' as http;
 
 class CaseService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
 
   Future<List<Case>> fetchCasesByClient(String clientId, String token) async {
     final uri = Uri.parse('$baseUrl/cases/clients/$clientId');

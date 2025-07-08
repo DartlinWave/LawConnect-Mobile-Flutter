@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:lawconnect_mobile_flutter/features/profiles/domain/entities/lawyer.dart';
 
 class ProfileService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
   // final String baseUrl = 'http://10.0.2.2:3000';
 
   // to get client profile by userId

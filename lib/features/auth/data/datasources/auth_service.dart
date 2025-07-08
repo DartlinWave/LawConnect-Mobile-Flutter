@@ -8,7 +8,7 @@ import 'package:lawconnect_mobile_flutter/features/auth/domain/entities/user.dar
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
 
   Future<User> login(String username, String password) async {
     final Uri uri = Uri.parse('$baseUrl/authentication/sign-in');

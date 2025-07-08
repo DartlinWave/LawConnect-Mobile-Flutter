@@ -4,7 +4,6 @@ import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
-import 'package:lawconnect_mobile_flutter/shared/custom_widgets/basic_button.dart';
 
 class CaseTrackingPage extends StatefulWidget {
   final String status;

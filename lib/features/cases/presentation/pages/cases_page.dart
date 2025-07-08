@@ -4,11 +4,12 @@ import 'package:lawconnect_mobile_flutter/core/theme/color_palette.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/create_case_page.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/case_tracking_page.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/comment_service.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/pages/follow_up_page.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_event.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_state.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/cases/presentation/blocs/case_details_event.dart';
 
 class CasesPage extends StatefulWidget {
   const CasesPage({super.key});
@@ -39,6 +40,21 @@ class _CasesPageState extends State<CasesPage> {
       context.read<CaseBloc>().add(
         GetCasesEvent(clientId: clientId, token: token),
       );
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status.toUpperCase()) {
+      case 'OPEN':
+        return Colors.blue;
+      case 'EVALUATION':
+        return Colors.orange;
+      case 'ACCEPTED':
+        return Colors.green;
+      case 'CLOSED':
+        return Colors.grey;
+      default:
+        return ColorPalette.blackColor;
     }
   }
 
@@ -138,22 +154,110 @@ class _CasesPageState extends State<CasesPage> {
                       if (cases.isEmpty) {
                         return Center(child: Text('No cases found'));
                       }
-                      return ListView.builder(
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.85,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                            ),
                         itemCount: cases.length,
                         itemBuilder: (context, index) {
                           final caseEntity = cases[index];
                           return Card(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            child: ListTile(
-                              title: Text(
-                                '${caseEntity.title} - State: ${caseEntity.status.name}',
-                              ),
-                              subtitle: Text(caseEntity.description ?? ''),
-                              trailing: TextButton(
-                                child: const Text('Follow Up'),
-                                onPressed: () {
-                                  // Navegar a la pantalla de seguimiento
-                                },
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Case title
+                                  Text(
+                                    caseEntity.title,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorPalette.blackColor,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 8),
+
+                                  // Case status
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'State: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: ColorPalette.greyColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        caseEntity.status.name,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color: _getStatusColor(
+                                            caseEntity.status.name,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const Spacer(),
+
+                                  // Follow Up button
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        // Navigate to follow up page
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BlocProvider(
+                                              create: (ctx) =>
+                                                  CaseDetailsBloc()..add(
+                                                    GetCaseDetailsEvent(
+                                                      caseId: caseEntity.id,
+                                                      token: token,
+                                                    ),
+                                                  ),
+                                              child: FollowUpPage(
+                                                chosenCase: caseEntity,
+                                                token: token,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            ColorPalette.lighterButtonColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Follow Up',
+                                        style: TextStyle(
+                                          color: ColorPalette.blackColor,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );

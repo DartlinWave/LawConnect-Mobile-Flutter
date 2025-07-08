@@ -47,7 +47,7 @@ class ApplicationDto {
   });
 
   factory ApplicationDto.fromJson(Map<String, dynamic> json) {
-    print('ApplicationDto.fromJson input: ' + json.toString());
+    print('ApplicationDto.fromJson input: $json');
     return ApplicationDto(
       id: json['id'] as int,
       caseId: json['caseId'] as String,

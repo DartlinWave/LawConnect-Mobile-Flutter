@@ -9,7 +9,7 @@ import 'package:lawconnect_mobile_flutter/features/cases/data/models/invitation_
 import 'package:http/http.dart' as http;
 
 class CommentService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
   // final String baseUrl = 'http://10.0.2.2:3000';
 
   Future<List<Comment>> fetchCommentsByCaseId(String caseId) async {
@@ -86,7 +86,7 @@ class CommentService {
 }
 
 class ApplicationService {
-  final String baseUrl = 'http://localhost:8080/api/v1';
+  final String baseUrl = 'https://lawconnect-backend-y48f.onrender.com/api/v1';
 
   Future<List<Application>> fetchApplicationsByCaseId(
     String caseId,
