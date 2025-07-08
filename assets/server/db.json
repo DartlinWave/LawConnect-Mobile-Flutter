@@ -173,6 +173,20 @@
       "image": "https://www.hunnicuttlaw.com/wp-content/uploads/2021/04/breach-of-contract.jpg"
     }
   ],
+  "applications": [
+    {
+      "id": 1,
+      "caseId": "153ba175-fad9-4f41-bf28-d78d7c799476",
+      "lawyerId": "bf631270-62f0-44c0-a772-29db93a3e3cd",
+      "status": "PENDING"
+    },
+    {
+      "id": 2,
+      "caseId": "153ba175-fad9-4f41-bf28-d78d7c799476",
+      "lawyerId": "797f0cd2-4be5-4650-926e-49a82e4e25da",
+      "status": "PENDING"
+    }
+  ],
   "invitations": [
     {
       "id": "1",

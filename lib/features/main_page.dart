@@ -23,10 +23,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   final List<Widget> _pages = [
-    HomePage(),
-    LawyersPage(),
-    CasesPage(),
-    Text("Profile"),
+    const HomePage(),
+    const LawyersPage(),
+    const CasesPage(),
+    const Text("Profile"),
   ];
 
   @override

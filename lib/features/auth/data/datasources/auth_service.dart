@@ -1,9 +1,8 @@
-// only made to get a user and its cases
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:lawconnect_mobile_flutter/features/auth/data/models/user_dto.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/data/models/user_basic_dto.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/domain/entities/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,6 +39,21 @@ class AuthService {
       return userDto.toDomain();
     } else {
       throw Exception('Failed to fetch user: ${response.statusCode}');
+    }
+  }
+
+  Future<List<User>> fetchAllUsers() async {
+    final uri = Uri.parse('$baseUrl/users');
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data
+          .map((userJson) => UserBasicDto.fromJson(userJson).toDomain())
+          .toList();
+    } else {
+      throw Exception('Failed to fetch users: ${response.statusCode}');
     }
   }
 

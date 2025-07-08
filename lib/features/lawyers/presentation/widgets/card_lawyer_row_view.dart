@@ -9,7 +9,7 @@ class CardLawyerRowView extends StatelessWidget {
   final String imageUrl;
 
   const CardLawyerRowView({
-    super.key, 
+    super.key,
     required this.name,
     required this.specialty,
     required this.rating,
@@ -28,7 +28,7 @@ class CardLawyerRowView extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey, // Set your border color
-              width: 1,           // Set your border width
+              width: 1, // Set your border width
             ),
             borderRadius: BorderRadius.circular(24),
           ),
@@ -38,7 +38,9 @@ class CardLawyerRowView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(22), // Adjust the radius as needed
+                  borderRadius: BorderRadius.circular(
+                    22,
+                  ), // Adjust the radius as needed
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.network(
@@ -46,6 +48,35 @@ class CardLawyerRowView extends StatelessWidget {
                       width: 80, // Set width
                       height: 110, // Set height
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 80,
+                          height: 110,
+                          color: Colors.grey[300],
+                          child: const Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(
+                          width: 80,
+                          height: 110,
+                          color: Colors.grey[200],
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                  : null,
+                              strokeWidth: 2.0,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -54,22 +85,28 @@ class CardLawyerRowView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Text(name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    Text(specialty,
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                          fontStyle: FontStyle.normal,
-                        )),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      specialty,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
                     Container(
-                      constraints: const BoxConstraints(maxWidth: 120), // Limita el ancho
+                      constraints: const BoxConstraints(
+                        maxWidth: 120,
+                      ), // Limita el ancho
                       child: Text(
                         description.length > 50
                             ? '${description.substring(0, 50)}...'

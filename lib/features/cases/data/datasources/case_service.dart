@@ -175,6 +175,75 @@ class CaseService {
     }
   }
 
+  Future<bool> closeCase(
+    String caseId,
+    String clientId, {
+    String? token,
+  }) async {
+    // Make sure we're using the exact format expected by the API
+    final uri = Uri.parse('$baseUrl/cases/$caseId/close?clientId=$clientId');
+    print('Closing case with URI: $uri');
+    print('Using clientId: $clientId');
+
+    try {
+      // Create headers map with required headers
+      final headers = {'Content-Type': 'application/json'};
+
+      // Add authorization token if provided
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      print('Headers: $headers');
+
+      // Try with an empty body object, some APIs expect this even with query parameters
+      final response = await http.put(
+        uri,
+        headers: headers,
+        body: jsonEncode({}), // Empty JSON body as some backends expect this
+      );
+
+      print('Close case response status: ${response.statusCode}');
+      print('Close case response body: "${response.body}"');
+
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == 200 ||
+          response.statusCode == 204) {
+        // Also accept 204 No Content
+        // If response body is empty, just return true to indicate success
+        if (response.body.isEmpty || response.body.trim() == '') {
+          print('Empty response body, but successful status code');
+          return true;
+        }
+
+        // If we have a body, try to decode it but don't fail if it doesn't work
+        try {
+          if (response.body.isNotEmpty) {
+            final decodedBody = jsonDecode(response.body);
+            print('Decoded response body: $decodedBody');
+          }
+          return true;
+        } catch (e) {
+          print(
+            'Error parsing close case response: $e. Returning success anyway since status code is OK',
+          );
+          return true;
+        }
+      } else {
+        // Log the error response
+        print(
+          'Failed to close case. Status: ${response.statusCode}, Body: ${response.body}',
+        );
+        throw Exception(
+          'Failed to close case: ${response.statusCode} for case $caseId. Response: ${response.body}',
+        );
+      }
+    } catch (e) {
+      print('Exception in closeCase: $e');
+      throw Exception('Failed to close case: $e');
+    }
+  }
+
   Future<List<Case>> fetchCasesByStatus({
     required String status,
     required String token,

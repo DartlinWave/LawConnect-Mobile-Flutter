@@ -34,7 +34,7 @@ class _ActionsViewState extends State<ActionsView> {
     super.initState();
     _commentController = TextEditingController(
       text: widget.initialComment?.comment ?? '',
-      );
+    );
   }
 
   @override
@@ -44,7 +44,11 @@ class _ActionsViewState extends State<ActionsView> {
   }
 
   int _countCommentWords(String content) {
-    return content.trim().split(RegExp(r'\s+')).where((word) => word.isNotEmpty).length;
+    return content
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((word) => word.isNotEmpty)
+        .length;
   }
 
   void _handleFinishCase() {
@@ -53,20 +57,34 @@ class _ActionsViewState extends State<ActionsView> {
 
     if (wordCount < 10 || wordCount > 200) {
       setState(() => _showError = true);
-      
       return;
     }
 
     final authState = context.read<AuthBloc>().state;
     if (authState is SuccessAuthState) {
-      final authorId = authState.user.id;
+      // We need to use the clientId from the case entity for the closeCase API endpoint
+      final clientId = widget.caseEntity.clientId;
+      final token = authState.user.token; // Get the token from auth state
+
+      print('Finishing case with clientId: $clientId');
+      print('Using auth token: $token');
 
       context.read<CaseDetailsBloc>().add(
         FinishCaseEvent(
           caseId: widget.caseEntity.id,
-          authorId: authorId,
+          authorId:
+              clientId, // Use clientId here since that's what the API expects
           comment: commentText,
-        )
+          token: token, // Pass the token to the event
+        ),
+      );
+    } else {
+      // Show an error if the user isn't authenticated
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You must be logged in to close a case'),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -100,7 +118,9 @@ class _ActionsViewState extends State<ActionsView> {
             decoration: InputDecoration(
               labelText: "Leave a comment about the lawyer",
               labelStyle: TextStyle(
-                color: isClosed ? ColorPalette.greyColor : ColorPalette.blackColor,
+                color: isClosed
+                    ? ColorPalette.greyColor
+                    : ColorPalette.blackColor,
               ),
               hintText: isClosed
                   ? "Comment is read-only after closing the case"
@@ -117,7 +137,10 @@ class _ActionsViewState extends State<ActionsView> {
                   width: 1,
                 ),
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 12,
+              ),
               filled: true,
               fillColor: ColorPalette.whiteColor,
               errorText: _showError
@@ -136,11 +159,10 @@ class _ActionsViewState extends State<ActionsView> {
                 width: 184,
                 height: 52,
                 backgroundColor: ColorPalette.primaryColor,
-                )
+              ),
             ),
         ],
       ),
     );
   }
 }
-

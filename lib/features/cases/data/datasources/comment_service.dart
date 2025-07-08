@@ -83,6 +83,72 @@ class CommentService {
       throw Exception('Failed to create comment: ${response.statusCode}');
     }
   }
+
+  Future<bool> createFinalComment(
+    String caseId,
+    String authorId,
+    String text, {
+    String? token,
+  }) async {
+    final uri = Uri.parse('$baseUrl/comments/final');
+
+    print('Creating final comment with URI: $uri');
+    print(
+      'Body: ${jsonEncode({'caseId': caseId, 'authorId': authorId, 'text': text})}',
+    );
+
+    try {
+      // Create headers map with required headers
+      final headers = {'Content-Type': 'application/json'};
+
+      // Add authorization token if provided
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.post(
+        uri,
+        headers: headers,
+        body: jsonEncode({
+          'caseId': caseId,
+          'authorId': authorId,
+          'text': text,
+        }),
+      );
+
+      print('Final comment response status: ${response.statusCode}');
+      print('Final comment response body length: ${response.body.length}');
+
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.created) {
+        // If response body is empty, just return true to indicate success
+        if (response.body.isEmpty || response.body.trim() == '') {
+          print('Empty response body, but successful status code');
+          return true;
+        }
+
+        // If we have a body, try to decode it
+        try {
+          jsonDecode(response.body); // Just verify it can be parsed
+          print('Successfully parsed comment data');
+          // We're not using the returned comment, so just return success
+          return true;
+        } catch (e) {
+          print(
+            'Error parsing comment data: $e. Returning success anyway since status code is OK',
+          );
+          return true;
+        }
+      } else {
+        throw Exception(
+          'Failed to create final comment: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      print('Exception in createFinalComment: $e');
+      throw Exception('Failed to create final comment: $e');
+    }
+  }
 }
 
 class ApplicationService {

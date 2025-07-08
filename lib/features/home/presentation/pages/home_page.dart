@@ -6,6 +6,9 @@ import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawye
 import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawyer_event.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/blocs/lawyer_state.dart';
 import 'package:lawconnect_mobile_flutter/features/home/presentation/widgets/card_doctor_view.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lawconnect_mobile_flutter/features/auth/presentation/bloc/auth_state.dart';
+import 'package:lawconnect_mobile_flutter/features/lawyers/presentation/pages/lawyer_profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,8 +20,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    context.read<LawyerBloc>().add(GetAllLawyersEvent());
     super.initState();
+    // Get token from AuthBloc and load lawyers
+    final authState = context.read<AuthBloc>().state;
+    if (authState is SuccessAuthState) {
+      context.read<LawyerBloc>().add(
+        GetAllLawyersEvent(token: authState.user.token),
+      );
+    }
   }
 
   List<dynamic> comments = []; //otra llmada a la bd
@@ -69,10 +78,31 @@ class _HomePageState extends State<HomePage> {
           ),
           BlocBuilder<LawyerBloc, LawyerState>(
             builder: (context, state) {
-              if (state is LoadedLawyerState) {
+              if (state is LoadingLawyerState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is LoadedLawyerState) {
                 return Carrusel(
                   listLawyers: state.lawyers,
                   child: Text("Suggested Laywers"),
+                );
+              } else if (state is ErrorLawyerState) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Text('Error loading lawyers: ${state.message}'),
+                      ElevatedButton(
+                        onPressed: () {
+                          final authState = context.read<AuthBloc>().state;
+                          if (authState is SuccessAuthState) {
+                            context.read<LawyerBloc>().add(
+                              GetAllLawyersEvent(token: authState.user.token),
+                            );
+                          }
+                        },
+                        child: Text('Retry'),
+                      ),
+                    ],
+                  ),
                 );
               }
               return Center();
@@ -89,11 +119,7 @@ class Carrusel extends StatelessWidget {
   final Widget child;
   final List<Lawyer> listLawyers;
 
-  Carrusel({super.key, required this.child, required this.listLawyers}) {
-    for (var lawyer in listLawyers) {
-      //debugPrint(lawyer);
-    }
-  }
+  const Carrusel({super.key, required this.child, required this.listLawyers});
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +135,30 @@ class Carrusel extends StatelessWidget {
             final lawyer = listLawyers[index];
 
             // una búsqueda de todo slo comentarios de abogado usando la var comments
-            return CardDoctorView(
-              name: lawyer.name ?? 'Unknown',
-              specialty: lawyer.specialty ?? 'Unknown',
-              rating: lawyer.rating.toString() ?? 'N/A',
-              imageUrl:
-                  lawyer.image ??
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+            return InkWell(
+              onTap: () {
+                // Navigate to lawyer profile page with lawyer data
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LawyerProfilePage(
+                      lawyerData: {
+                        'name': lawyer.name,
+                        'specialty': lawyer.specialty,
+                        'rating': lawyer.rating,
+                        'description': lawyer.description,
+                        'image': lawyer.image,
+                      },
+                    ),
+                  ),
+                );
+              },
+              child: CardDoctorView(
+                name: lawyer.name,
+                specialty: lawyer.specialty,
+                rating: lawyer.rating.toString(),
+                imageUrl: lawyer.image,
+              ),
             );
           },
         ),

@@ -95,15 +95,34 @@ class _FollowUpPageState extends State<FollowUpPage> {
           child: BlocListener<CaseDetailsBloc, CaseDetailsState>(
             listener: (context, state) {
               if (state is FinishCaseState) {
+                // Show a success message
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Case succesfully closed.")),
+                  SnackBar(
+                    content: Text("Case successfully closed."),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  ),
                 );
 
-                Future.delayed(Duration(seconds: 1), () {
+                // Delay for a better UX experience, then navigate back
+                Future.delayed(Duration(seconds: 2), () {
                   if (mounted) {
-                    Navigator.pop(context);
+                    Navigator.pop(
+                      context,
+                      true,
+                    ); // Return true to indicate successful closure
                   }
                 });
+              } else if (state is ErrorCaseDetailsState &&
+                  state.message.contains('close case')) {
+                // Show an error message specifically for case closure failures
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Failed to close case: ${state.message}"),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
               }
             },
 

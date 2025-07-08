@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lawconnect_mobile_flutter/features/auth/data/datasources/auth_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/case_service.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/data/datasources/comment_service.dart';
-import 'package:lawconnect_mobile_flutter/features/cases/data/models/comment_request_dto.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/case.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/comment.dart';
 import 'package:lawconnect_mobile_flutter/features/cases/domain/entities/applicant.dart';
@@ -186,27 +185,75 @@ class CaseDetailsBloc extends Bloc<CaseDetailsEvent, CaseDetailsState> {
     FinishCaseEvent event,
     Emitter<CaseDetailsState> emit,
   ) async {
-    emit(LoadingCaseDetailsState());
+    // Keep track of the current state to access token for subsequent calls
+    final currentState = state;
 
-    try {
-      await CommentService().createComment(
-        CommentRequestDto(
-          caseId: event.caseId,
-          authorId: event.authorId,
-          type: "FINAL_REVIEW",
-          comment: event.comment,
-          createdAt: DateTime.now().toIso8601String(),
+    // Extract token from the current state if it's a loaded state
+    if (currentState is LoadedCaseDetailsState) {
+      final loadedState = currentState;
+
+      // Update UI to loading state while keeping important data
+      emit(LoadingCaseDetailsState());
+
+      try {
+        // First save the final review comment using the new endpoint for final comments
+        print('Creating final comment for case ${event.caseId}');
+        bool finalCommentSuccess = await CommentService().createFinalComment(
+          event.caseId,
+          event.authorId,
+          event.comment,
+          token: event.token, // Pass the token
+        );
+        print('Final comment created successfully: $finalCommentSuccess');
+
+        // Call the new endpoint to close the case
+        print('Closing case ${event.caseId} with client ${event.authorId}');
+        print('Using token: ${event.token}');
+
+        // Pass the token to the closeCase method
+        bool closeSuccess = await CaseService().closeCase(
+          event.caseId,
+          event.authorId,
+          token: event.token, // Pass the token
+        );
+
+        print('Case closed successfully: $closeSuccess');
+
+        // Only update the state if the API call was successful
+        if (closeSuccess) {
+          // Create a closed case entity from the current one
+          final closedCase = Case(
+            id: loadedState.caseEntity.id,
+            clientId: loadedState.caseEntity.clientId,
+            title: loadedState.caseEntity.title,
+            description: loadedState.caseEntity.description,
+            status: CaseStatus.CLOSED, // Update status to CLOSED
+            image: loadedState.caseEntity.image,
+            createdAt: loadedState.caseEntity.createdAt,
+            updatedAt: DateTime.now(),
+            applicationsCount: loadedState.caseEntity.applicationsCount,
+          );
+
+          // Update the state to finished
+          emit(FinishCaseState(caseEntity: closedCase));
+        } else {
+          emit(
+            ErrorCaseDetailsState(
+              message: 'Failed to close case. Backend did not confirm closure.',
+            ),
+          );
+        }
+      } catch (e) {
+        print('Error closing case: $e');
+        emit(ErrorCaseDetailsState(message: 'Error closing case: $e'));
+      }
+    } else {
+      // If we're not in a loaded state, we can't proceed
+      emit(
+        ErrorCaseDetailsState(
+          message: 'Cannot close case: no case details available',
         ),
       );
-
-      final closed = await CaseService().finishCaseStatus(
-        event.caseId,
-        "CLOSED",
-      );
-
-      emit(FinishCaseState(caseEntity: closed));
-    } catch (e) {
-      emit(ErrorCaseDetailsState(message: e.toString()));
     }
   }
 }
